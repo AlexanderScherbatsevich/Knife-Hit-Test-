@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    //public Animation shakeAndFlash;
     public TargetData targetData;
-    //[Range(-1f, 1f)]
     private float minRotSpeed;
-    //[Range(-1f, 1f)]
     private float maxRotSpeed;
-    //[Range(0.01f, 10f)]
     private float timeForAccelerate;
     private bool isRandomSpeed;
-
     private SpriteRenderer sRend;
     private float timeStart;
     private float angle = 1000;
@@ -21,7 +18,6 @@ public class Target : MonoBehaviour
     private void Start()
     {
         sRend = GetComponent<SpriteRenderer>();
-
         sRend.sprite = targetData.sprite;       
         minRotSpeed = targetData.minSpeedRot;
         maxRotSpeed = targetData.maxSpeedRot;
@@ -31,6 +27,8 @@ public class Target : MonoBehaviour
         timeStart = Time.time;
 
         StartCoroutine(VariableRotate());
+
+        GameManager.OnHitted += ShakeAndFlash;
     }
 
     private IEnumerator VariableRotate()
@@ -42,6 +40,7 @@ public class Target : MonoBehaviour
             {
                 if (isRandomSpeed)
                     ChangeSpeed();
+                
                 float tSpeed = minRotSpeed;
                 minRotSpeed = maxRotSpeed;
                 maxRotSpeed = tSpeed;
@@ -61,6 +60,22 @@ public class Target : MonoBehaviour
     {
         minRotSpeed = Random.Range(-0.8f, 0.8f);
         timeForAccelerate = Random.Range(0.5f, 3f);
+    }
+
+    public void ShakeAndFlash()
+    {
+        
+        Vector2 tPos = transform.position;
+        transform.position = tPos + Random.insideUnitCircle * 1.5f;
+        transform.position = tPos;
+        Color col = sRend.color;
+        sRend.color = Color.white;
+        sRend.color = col;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnHitted -= ShakeAndFlash;
     }
 
 

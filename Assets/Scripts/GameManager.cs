@@ -4,27 +4,45 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector]
+    public static bool isKnifeInTarget = false;
+    public static bool isGameOver = false;
+    public static GameManager S;
     public GameObject prefabKnife;
 
+    
 
     public delegate void OnTouch();
     public static event OnTouch OnTouched;
+    public static event OnTouch OnHitted;
 
     void Start()
     {
-        
+        OnHitted += CreateKnife;
+
+        CreateKnife();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
             OnTouched?.Invoke();
+
+        if (isKnifeInTarget)
+            OnHitted?.Invoke();
+            
     }
 
     public void CreateKnife()
     {
-        GameObject go = Instantiate(prefabKnife, new Vector2(0, -3.5f), Quaternion.identity);
-        var knife = go.GetComponent<Knife>();
+        isKnifeInTarget = false;
+        GameObject go = Instantiate(prefabKnife, new Vector2(0, -6.5f), Quaternion.identity);
+        go.transform.position = Vector2.Lerp(transform.position, new Vector2(0, -4.5f), 0.9f);
+    }
+
+
+    private void OnDisable()
+    {
+        OnHitted -= CreateKnife;
     }
 }
