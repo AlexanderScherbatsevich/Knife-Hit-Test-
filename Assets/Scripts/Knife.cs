@@ -46,9 +46,4 @@ public class Knife : MonoBehaviour
         }
 
     }
-
-    public void Destroy()
-    {
-        Destroy(this.gameObject);
-    }
 }

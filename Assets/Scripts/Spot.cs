@@ -11,7 +11,6 @@ public class Spot : MonoBehaviour
 {
     //private SpotType _type = SpotType.none;
     public SpotType type = SpotType.none;
-    private GameObject prefab;
     //public SpotType type
     //{
     //    get { return (_type); }
@@ -32,14 +31,6 @@ public class Spot : MonoBehaviour
             this.gameObject.SetActive(false);
             GameObject go = Instantiate(prefab,transform);
             go.transform.SetParent(rootGO.transform);
-            //go.tag = "Knife";
-            //go.GetComponent<Knife>().enabled = false;
         }
-        //else if (type == SpotType.knife)
-        //{
-        //    this.gameObject.SetActive(true);
-        //    GameObject go = Instantiate(prefab, this.transform);
-        //    go.transform.SetParent(rootGO.transform);
-        //}
     }
 }

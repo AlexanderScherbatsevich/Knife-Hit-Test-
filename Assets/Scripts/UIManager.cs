@@ -28,8 +28,9 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         //menuPanel.SetAsLastSibling();
-        MenuIsOpened = true;
-        Time.timeScale = 0f;
+        //MenuIsOpened = true;
+        //Time.timeScale = 0f;
+        GameManager.OnHitted += AddScore;
     }
 
 
@@ -74,17 +75,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void AddAppleCount()
+    public void AddScore(Collider2D col)
     {
-        int value = int.Parse(appleCountText.text);
-        value++;
-        appleCountText.text = value.ToString();
+        var go = col.gameObject;
+        string tag = col.gameObject.tag;
+        if(tag == "Target")
+        {
+            int value = int.Parse(scoreCountText.text);
+            value++;
+            scoreCountText.text = value.ToString();
+        }
+        else if (tag == "Apple")
+        {
+            int value = int.Parse(appleCountText.text);
+            value++;
+            appleCountText.text = value.ToString();
+        }
+ 
     }
 
-    public void AddScoreCount()
+    private void OnDisable()
     {
-        int value = int.Parse(scoreCountText.text);
-        value++;
-        scoreCountText.text = value.ToString();
+        GameManager.OnHitted -= AddScore;
     }
 }

@@ -10,18 +10,20 @@ public class GameManager : MonoBehaviour
     public GameObject prefabKnife;
     public GameObject prefabAppleDestroyed;
     public GameObject prefabSparks;
-    //public StageDefinition[] StageDef;
+    public StageDefinition[] StageDef;
     //public delegate void OnTouch();
     public static event Action OnTouched;
     public static Action <Collider2D> OnHitted;
     [HideInInspector]
-    public int knivesCount = 5;
+    public int knivesCount;
+
+
 
     void Start()
     {
         OnHitted += CheckCollider;
-        //CreateStage(StageDef[0]);
-        CreateKnife();
+        CreateStage(StageDef[0]);
+       // CreateKnife();
     }
 
     void Update()
@@ -31,9 +33,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void CreateKnife()
-    {      
-        GameObject go = Instantiate(prefabKnife, new Vector2(0, -6.5f), Quaternion.identity);
-        go.transform.position = Vector2.Lerp(transform.position, new Vector2(0, -4.5f), 0.9f);        
+    {
+        if (knivesCount > 0)
+        {
+            knivesCount--;
+            GameObject go = Instantiate(prefabKnife, new Vector2(0, -6.5f), Quaternion.identity);
+            go.transform.position = Vector2.Lerp(transform.position, new Vector2(0, -4.5f), 0.9f);
+        }
+        else return; //добавить переход на следю уровень
+ 
     }
 
     public void CheckCollider(Collider2D collision)
@@ -47,16 +55,13 @@ public class GameManager : MonoBehaviour
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
                 Destroy(sGO, 1f);
-                //UIManager.S.AddAppleCount();
+                
                 break;
-            case "Apple":
-                //CreateKnife();
-                //go.GetComponent<Apple>().Break();               
-                var tgo = Instantiate(prefabAppleDestroyed,
+            case "Apple":              
+                Instantiate(prefabAppleDestroyed,
                     go.transform.position,go.transform.rotation);
                 Destroy(go);
-                //UIManager.S.AddAppleCount();
-
+               
                 break;
             case "Knife":
                 //CreateKnife();
@@ -66,35 +71,53 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //public void CreateStage(StageDefinition stageDef)
-    //{
-    //    var target = Instantiate(stageDef.Target);
-    //    //knivesCount = stageDef.freeKnivesCount;
-    //    CreateKnife();      
-    //    //UIManager.S.ShowKnivesUI(knivesCount);
-        
-    //}
+    private void CreateStage(StageDefinition stageDef)
+    {
+        var target = Instantiate(stageDef.Target);
+        knivesCount = stageDef.freeKnivesCount;
+        CreateKnife();
+        //UIManager.S.ShowKnivesUI(knivesCount);
+
+    }
 
     private void OnDisable()
     {
         OnHitted -= CheckCollider;
     }
+
+    //public void AddAppleCount()
+    //{
+    //    int value = int.Parse(appleText.text);
+    //    value++;
+    //    appleText.text = value.ToString();
+    //}
+
+    //public void AddScoreCount()
+    //{
+    //    int value = int.Parse(scoreText.text);
+    //    value++;
+    //    scoreText.text = value.ToString();
+    //}
+
 }
 
-//public enum StageType
-//{
-//    stage,
-//    boss,
-//}
+public enum StageType
+{
+    stage,
+    boss,
+}
 
-//[System.Serializable]
-//public class StageDefinition
-//{
-//    public StageType type = StageType.stage;
-//    public string stageName;                       
-//    public GameObject Target;
-//    public GameObject prefabTargetDestroyed;
-//    [Range(1,10)]
-//    public int freeKnivesCount = 0;
-//    public Sprite newKnifeSkin;
-//}
+[System.Serializable]
+public class StageDefinition
+{
+    public StageType type = StageType.stage;
+    public string stageName;
+    public GameObject Target;
+    public GameObject prefabTargetDestroyed;
+    [Range(1, 10)]
+    public int freeKnivesCount = 0;
+    public Sprite newKnifeSkin;
+}
+
+
+
