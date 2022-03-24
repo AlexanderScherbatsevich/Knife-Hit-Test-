@@ -7,6 +7,7 @@ TagManager:
   - Target
   - Knife
   - New Knife
+  - Apple
   layers:
   - Default
   - TransparentFX

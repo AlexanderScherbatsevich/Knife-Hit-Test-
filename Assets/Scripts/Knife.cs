@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Knife : MonoBehaviour
@@ -14,7 +12,9 @@ public class Knife : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        GameManager.OnTouched += Move;
+        if(this.gameObject.tag == "New Knife") 
+            GameManager.OnTouched += Move;
+        
     }
 
     public void Move()
@@ -26,24 +26,24 @@ public class Knife : MonoBehaviour
     {
 
         GameObject go = collision.gameObject;
-        GameManager.OnTouched -= Move;
-
+        
+        GameManager.OnHitted?.Invoke(collision);
         Debug.Log(go.name);
         if (go.tag == "Target")
         {
+            GameManager.OnTouched -= Move;
             this.gameObject.tag = "Knife";
             this.gameObject.transform.SetParent(go.transform);
             rb.bodyType = RigidbodyType2D.Static;
             rb.sleepMode = RigidbodySleepMode2D.StartAsleep;
-            GameManager.isKnifeInTarget = true;
+            //GameManager.isKnifeInTarget = true;           
         }
         else if (go.tag == "Knife")
         {
-            rb.AddForce(new Vector2(Random.Range(-1000,-800), -force * 1));
+            GameManager.OnTouched -= Move;
+            rb.AddForce(new Vector2(Random.Range(-1000, -800), -force * 1));
             rb.SetRotation(Random.Range(-180f, 180f));
-            GameManager.isGameOver = true;
 
-            Invoke("Destroy", 1f);
         }
 
     }
