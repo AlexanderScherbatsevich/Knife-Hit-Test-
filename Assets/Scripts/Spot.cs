@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public enum SpotType
 {
     none,
@@ -10,18 +9,19 @@ public enum SpotType
 
 public class Spot : MonoBehaviour
 {
-    private SpotType _type = SpotType.none;
+    //private SpotType _type = SpotType.none;
+    public SpotType type = SpotType.none;
     private GameObject prefab;
-    public SpotType type
-    {
-        get { return (_type); }
-        set { SetType(value, prefab); }
-    }
+    //public SpotType type
+    //{
+    //    get { return (_type); }
+    //    set { SetType(value, prefab); }
+    //}
 
     public void SetType(SpotType st, GameObject prefab)
     {
         GameObject rootGO = transform.root.gameObject;
-        _type = st;
+        type = st;
         if (type == SpotType.none)
         {
             this.gameObject.SetActive(false);
@@ -29,8 +29,8 @@ public class Spot : MonoBehaviour
         }
         else
         {
-            this.gameObject.SetActive(true);
-            GameObject go = Instantiate(prefab, this.transform);
+            this.gameObject.SetActive(false);
+            GameObject go = Instantiate(prefab,transform);
             go.transform.SetParent(rootGO.transform);
             //go.tag = "Knife";
             //go.GetComponent<Knife>().enabled = false;

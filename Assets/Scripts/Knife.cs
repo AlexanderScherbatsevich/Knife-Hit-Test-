@@ -13,8 +13,7 @@ public class Knife : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         if(this.gameObject.tag == "New Knife") 
-            GameManager.OnTouched += Move;
-        
+            GameManager.OnTouched += Move;        
     }
 
     public void Move()
@@ -28,7 +27,7 @@ public class Knife : MonoBehaviour
         GameObject go = collision.gameObject;
         
         GameManager.OnHitted?.Invoke(collision);
-        Debug.Log(go.name);
+        //Debug.Log(go.name);
         if (go.tag == "Target")
         {
             GameManager.OnTouched -= Move;

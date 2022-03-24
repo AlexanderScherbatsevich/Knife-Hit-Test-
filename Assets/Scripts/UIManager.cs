@@ -8,15 +8,25 @@ public class UIManager : MonoBehaviour
     public static bool MenuIsOpened = false;
     public static UIManager S;
 
-    public Transform menuPanel;
-    public Transform gameOverPanel;
+    public Text appleCountText;
+
+    [Header("GamePanel")]
     public Transform gamePanel;
+    public Text scoreCountText;
+    public Text stageGP;
     public GameObject[] knivesCount;
-    public Text stageGP, stageGOP, stageMenuP;
-    public Text appleCount;
+
+    [Header("MenuPanel")]
+    public Transform menuPanel;
+    public Text maxScoreText;
+    public Text maxStage;
+
+    [Header("GameOverPanel")]
+    public Transform gameOverPanel;
+    public Text lastStage;
+
     void Start()
     {
-        
         //menuPanel.SetAsLastSibling();
         MenuIsOpened = true;
         Time.timeScale = 0f;
@@ -56,6 +66,25 @@ public class UIManager : MonoBehaviour
 
     public void ShowKnivesUI(int count)
     {
-        StartCoroutine(ShowKnivesCount(count));
+        //StartCoroutine(ShowKnivesCount(count));
+        for (int i = 0; i < count; i++)
+        {
+            knivesCount[i].SetActive(true);
+          
+        }
+    }
+
+    public void AddAppleCount()
+    {
+        int value = int.Parse(appleCountText.text);
+        value++;
+        appleCountText.text = value.ToString();
+    }
+
+    public void AddScoreCount()
+    {
+        int value = int.Parse(scoreCountText.text);
+        value++;
+        scoreCountText.text = value.ToString();
     }
 }

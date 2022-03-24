@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Target : MonoBehaviour
 {
     //public Animation shakeAndFlash;
@@ -18,9 +17,13 @@ public class Target : MonoBehaviour
     private Quaternion q;
     [SerializeField]
     private List<Spot> Spots;
+    public GameObject prefabApple;
+    public GameObject prefabKnife;
 
-    private void Start()
+    private void Awake()
     {
+        //prefabApple = targetData.applePrefab;
+        //prefabKnife = targetData.knifePrefab;
         sRend = GetComponent<SpriteRenderer>();
         sRend.sprite = targetData.sprite;       
         minRotSpeed = targetData.minSpeedRot;
@@ -96,7 +99,7 @@ public class Target : MonoBehaviour
                 Spot s = GetEmptySpot();
                 if (s != null)
                 {
-                    s.SetType(SpotType.apple, targetData.applePrefab);
+                    s.SetType(SpotType.apple, prefabApple);
                 }
                 else return;
             }
@@ -109,7 +112,7 @@ public class Target : MonoBehaviour
                 Spot s = GetEmptySpot();
                 if (s != null)
                 {
-                    s.SetType(SpotType.knife, targetData.knifePrefab);
+                    s.SetType(SpotType.knife, prefabKnife);
                 }
                 else return;
             }

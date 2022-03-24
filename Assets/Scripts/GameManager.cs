@@ -10,23 +10,18 @@ public class GameManager : MonoBehaviour
     public GameObject prefabKnife;
     public GameObject prefabAppleDestroyed;
     public GameObject prefabSparks;
-    public StageDefinition[] StageDef;
+    //public StageDefinition[] StageDef;
     //public delegate void OnTouch();
     public static event Action OnTouched;
     public static Action <Collider2D> OnHitted;
     [HideInInspector]
-    public int knivesCount;
+    public int knivesCount = 5;
 
-    private void Awake()
-    {
-        
-    }
     void Start()
     {
-         
         OnHitted += CheckCollider;
-        CreateStage(0);
-
+        //CreateStage(StageDef[0]);
+        CreateKnife();
     }
 
     void Update()
@@ -52,6 +47,7 @@ public class GameManager : MonoBehaviour
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
                 Destroy(sGO, 1f);
+                //UIManager.S.AddAppleCount();
                 break;
             case "Apple":
                 //CreateKnife();
@@ -59,6 +55,7 @@ public class GameManager : MonoBehaviour
                 var tgo = Instantiate(prefabAppleDestroyed,
                     go.transform.position,go.transform.rotation);
                 Destroy(go);
+                //UIManager.S.AddAppleCount();
 
                 break;
             case "Knife":
@@ -69,14 +66,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CreateStage(int stageIndex)
-    {
-        var target = Instantiate(StageDef[stageIndex].Target);
-        CreateKnife();
-        knivesCount = StageDef[stageIndex].freeKnivesCount;
-        //UIManager.S.ShowKnivesUI(knivesCount);
+    //public void CreateStage(StageDefinition stageDef)
+    //{
+    //    var target = Instantiate(stageDef.Target);
+    //    //knivesCount = stageDef.freeKnivesCount;
+    //    CreateKnife();      
+    //    //UIManager.S.ShowKnivesUI(knivesCount);
         
-    }
+    //}
 
     private void OnDisable()
     {
@@ -84,20 +81,20 @@ public class GameManager : MonoBehaviour
     }
 }
 
-public enum StageType
-{
-    stage,
-    boss,
-}
+//public enum StageType
+//{
+//    stage,
+//    boss,
+//}
 
-[System.Serializable]
-public class StageDefinition
-{
-    public StageType type = StageType.stage;
-    public string stageName;                       
-    public GameObject Target;
-    public GameObject prefabTargetDestroyed;
-    [Range(1,10)]
-    public int freeKnivesCount = 0;
-    public Sprite newKnifeSkin;
-}
+//[System.Serializable]
+//public class StageDefinition
+//{
+//    public StageType type = StageType.stage;
+//    public string stageName;                       
+//    public GameObject Target;
+//    public GameObject prefabTargetDestroyed;
+//    [Range(1,10)]
+//    public int freeKnivesCount = 0;
+//    public Sprite newKnifeSkin;
+//}
