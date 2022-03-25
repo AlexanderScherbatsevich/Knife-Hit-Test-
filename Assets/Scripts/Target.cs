@@ -29,7 +29,8 @@ public class Target : MonoBehaviour
 
         timeStart = Time.time;
         ShuffleSpot(ref Spots);
-        SetSpots();
+        //SetSpots();
+        Invoke("SetSpots", 0.3f);
 
         StartCoroutine(VariableRotate());
 
