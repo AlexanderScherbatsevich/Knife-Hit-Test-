@@ -34,7 +34,7 @@ public class Target : MonoBehaviour
 
         StartCoroutine(VariableRotate());
 
-        //GameManager.OnHitted += ShakeAndFlash;
+        GameManager.OnHitted += ShakeAndFlash;
     }
 
     private IEnumerator VariableRotate()
@@ -63,25 +63,31 @@ public class Target : MonoBehaviour
 
     private void ChangeSpeed()
     {
-        minRotSpeed = Random.Range(-0.8f, 0.8f);
-        timeForAccelerate = Random.Range(0.5f, 3f);
+        minRotSpeed = Random.Range(minRotSpeed, maxRotSpeed);
+        timeForAccelerate = Random.Range(0.01f, timeForAccelerate);
     }
 
-    public void ShakeAndFlash()
+    // переделать!!!!
+    public void ShakeAndFlash(Collider2D collision)
     {
-        
-        Vector2 tPos = transform.position;
-        transform.position = tPos + Random.insideUnitCircle * 1.5f;
-        transform.position = tPos;
-        Color col = sRend.color;
-        sRend.color = Color.white;
-        sRend.color = col;
-    }
+        string tag = collision.gameObject.tag;
+        if (tag == this.gameObject.tag)
+        {
+            Vector2 tPos = transform.position;
+            LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.65f, 0f),
+                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
+            LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.5f, 0f),
+                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
+            //transform.position = tPos;
+            Color col = sRend.color;
+            LeanTween.color(this.gameObject, Color.white, 0.5f);
+            //sRend.color = Color.white;
+            LeanTween.color(this.gameObject, col, 0.5f);
+            //sRend.color = col;
+        }
+    }   
 
-    private void OnDisable()
-    {
-        //GameManager.OnHitted -= ShakeAndFlash;
-    }
+
 
     public void SetSpots()
     {
@@ -137,6 +143,12 @@ public class Target : MonoBehaviour
         }
         Spots = tSpots; 
     }
+
+    private void OnDisable()
+    {
+        GameManager.OnHitted -= ShakeAndFlash;
+    }
+
     //public void VariableRotate()
     //{
     //    float u = (Time.time - timeStart) / timeForAccelerate;

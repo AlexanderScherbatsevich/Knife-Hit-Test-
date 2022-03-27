@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -42,6 +43,7 @@ public class UIManager : MonoBehaviour
             CreateStageUI(stageData[0]);
             GameManager.OnHitted += IsHitted;
             GameManager.GameWin += CreateNextStage;
+            GameManager.GameLost += DelayToGameOver;
         }
 
         if (PlayerPrefs.HasKey("ApplesCount"))
@@ -98,10 +100,11 @@ public class UIManager : MonoBehaviour
     {
         var go = col.gameObject;
         string tag = col.gameObject.tag;
-        if(tag == "Target")
-        {
-            int value = int.Parse(scoreCountText.text);
-            knivesCount[value].GetComponent<Image>().color = Color.black;          
+        int value = int.Parse(scoreCountText.text);
+        knivesCount[value].GetComponent<Image>().color = Color.black;
+
+        if (tag == "Target")
+        {                     
             value++;
             scoreCountText.text = value.ToString();
         }
@@ -117,12 +120,18 @@ public class UIManager : MonoBehaviour
             CheckHighscore(int.Parse(scoreCountText.text));
             CheckMaxStage(nextStage - 1);
             PlayerPrefs.SetString("LastStage", stageName.text);
-            Invoke("DelayToGameOver", 2f);
         }
     }
 
     public void DelayToGameOver()
     {
+        StartCoroutine(DelayGameOver());
+        //SceneManager.LoadScene(2);
+    }
+
+    private IEnumerator DelayGameOver()
+    {
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene(2);
     }
 
@@ -195,5 +204,6 @@ public class UIManager : MonoBehaviour
     {
         GameManager.OnHitted -= IsHitted;
         GameManager.GameWin -= CreateNextStage;
+        GameManager.GameLost -= DelayToGameOver;
     }
 }

@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,12 +10,15 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false;
     public static GameManager S;
     public GameObject prefabKnife;
-    public GameObject prefabAppleDestroyed;
+    public GameObject prefabDestroyedApple;
+    public GameObject prefabDestroyedTarget;
     public GameObject prefabSparks;
     public StageData[] stageData;
+    public float delayBetweenThrows;
     //public delegate void OnTouch();
     public static event Action OnTouched;
     public static event Action GameWin;
+    public static Action GameLost;
     public static Action <Collider2D> OnHitted;
     [HideInInspector]
     public int knivesCount;
@@ -21,39 +26,55 @@ public class GameManager : MonoBehaviour
     public int nextStage = 0;
     [HideInInspector]
     public GameObject target;
-    public float delayToTouch = 0.2f;
+    private float lastThrowTime;
+    private GameObject knife;
     void Start()
     {
         OnHitted += CheckCollider;
+        GameLost += DestroyKnife;
         CreateStage(stageData[0]);
+        lastThrowTime = Time.time;
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            OnTouched?.Invoke();       
+        {
+            if (Time.time - lastThrowTime < delayBetweenThrows) return;
+            else 
+            {
+                OnTouched?.Invoke();
+                lastThrowTime = Time.time;
+            }
+        }
     }
 
     public void CreateKnife()
     {
         if (knivesCount > 0)
         {
-            knivesCount--;
-            var go = (GameObject)Instantiate(prefabKnife, 
+            
+             knife = Instantiate(prefabKnife, 
                 new Vector2(0, -6f), Quaternion.identity);
-            LeanTween.moveLocal(go, new Vector2(0, -3f),
-                0.2f).setDelay(delayToTouch).setEase(LeanTweenType.easeOutCubic);
-
+            LeanTween.moveLocal(knife, new Vector2(0, -3f),
+                0.2f).setDelay(0.2f).setEase(LeanTweenType.easeOutExpo);
+            knivesCount--;
         }
         else if (knivesCount <= 0)
         {
-            DestroyTarget();
-            CreateStage(stageData[nextStage]);
-            GameWin?.Invoke();
+            StartToDestroyTarget();
+            //if (nextStage < stageData.Length)
+            //    CreateStage(stageData[nextStage]);
+            //else return;
+
+            //GameWin?.Invoke();
         }
- 
     }
 
+    public void DestroyKnife()
+    {
+        Destroy(knife, 0.5f);
+    }
     public void CheckCollider(Collider2D collision)
     {
         var go = collision.gameObject;
@@ -62,17 +83,17 @@ public class GameManager : MonoBehaviour
         {
             case "Target":
                 CreateKnife();
+                ShakeAndFlash(go);
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
                 Destroy(sGO, 1f);                
                 break;
             case "Apple":              
-                Instantiate(prefabAppleDestroyed,
+                Instantiate(prefabDestroyedApple,
                     go.transform.position,go.transform.rotation);
-                Destroy(go);
-               
+                Destroy(go);              
                 break;
-            case "Knife": 
+            case "Knife":
                 
                 break;
             default:
@@ -80,16 +101,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //починить!!!
+    public void ShakeAndFlash(GameObject go)
+    {      
+            Vector2 tPos = go.transform.position;
+            LeanTween.moveLocal(go, new Vector3(0, 1.65f, 0f),
+                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
+            LeanTween.moveLocal(go, new Vector3(0, 1.5f, 0f),
+                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
+            //transform.position = tPos;
+            Color col = go.GetComponent<SpriteRenderer>().color;
+            LeanTween.color(go, Color.white, 0.5f);
+            //sRend.color = Color.white;
+            LeanTween.color(go, col, 0.5f);
+            //sRend.color = col;        
+    }
+
     private void CreateStage(StageData stage)
     {
         target = Instantiate(stage.Target);
-        //target.transform.localScale = new Vector3(0, 0, 0);
-        LeanTween.scale(target, new Vector3(2f, 2f, 1f),
+        LeanTween.scale(target, new Vector3(1.5f, 1.5f, 1f),
                 0.3f).setDelay(0.3f).setEase(LeanTweenType.easeOutCubic);
         knivesCount = stage.freeKnivesCount;
         CreateKnife();
-        //stageName.text = stage.stageName;
-        //ShowKnivesUI(knivesCount);
         nextStage++;
     }
 
@@ -97,32 +131,35 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         OnHitted -= CheckCollider;
+        GameLost -= DestroyKnife;
+
     }
 
-    public void DestroyTarget()
+    public void StartToDestroyTarget()
     {
-        //Instantiate(prefabAppleDestroyed,go.transform.position, go.transform.rotation);
+        StartCoroutine(DestroyTarget());
+    }
+
+    private IEnumerator DestroyTarget()
+    {
         Destroy(target);
+        yield return null;
+        //Instantiate(prefabDestroyedTarget); 
+        Instantiate(stageData[nextStage -1].prefabDestroyedTarget);
+        yield return new WaitForSeconds(1.5f);
+        if (nextStage < stageData.Length)
+        {
+            CreateStage(stageData[nextStage]);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
+        }          
+        yield return null;
+        GameWin?.Invoke();
     }
 }
 
-//public enum StageType
-//{
-//    stage,
-//    boss,
-//}
-
-//[System.Serializable]
-//public class StageDefinition
-//{
-//    public StageType type = StageType.stage;
-//    public string stageName;
-//    public GameObject Target;
-//    public GameObject prefabTargetDestroyed;
-//    [Range(1, 10)]
-//    public int freeKnivesCount = 0;
-//    public Sprite newKnifeSkin;
-//}
 
 
 

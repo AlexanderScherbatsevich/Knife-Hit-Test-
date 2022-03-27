@@ -117,7 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770c1bf026ca1fd458a5a9f7ad167b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: -400
+  forceX: -300
+  forceY: -100
+  angle: 60
 --- !u!1 &1801633916393096134
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,7 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770c1bf026ca1fd458a5a9f7ad167b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 400
+  forceX: 300
+  forceY: -100
+  angle: -60
 --- !u!1 &1801633916540230782
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1801633916540230783}
   m_Layer: 0
-  m_Name: AppleDestroyed
+  m_Name: DestroyedApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

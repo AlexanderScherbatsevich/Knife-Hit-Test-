@@ -963,16 +963,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabKnife: {fileID: 6846367172743345542, guid: f32be6192b571284296695832b744d13, type: 3}
-  prefabAppleDestroyed: {fileID: 1801633916540230782, guid: 967ad22daec9aa647974341ca9ab83de, type: 3}
+  prefabDestroyedApple: {fileID: 1801633916540230782, guid: 967ad22daec9aa647974341ca9ab83de, type: 3}
+  prefabDestroyedTarget: {fileID: 1797261859566750200, guid: a18ad4a89c4d65747a33b0a220af8c3a, type: 3}
   prefabSparks: {fileID: 1686427812575984388, guid: 198603b9cf914ac48be940f8f49b7d82, type: 3}
   stageData:
   - {fileID: 11400000, guid: 5f5130af29cb3c9418502a48c7124581, type: 2}
   - {fileID: 11400000, guid: fcc6d0988817b764299252c319a05091, type: 2}
   - {fileID: 11400000, guid: 779b3c5fe611cd84ea7d3192f722d3d1, type: 2}
+  delayBetweenThrows: 0.2
   knivesCount: 5
   nextStage: 0
   target: {fileID: 0}
-  delayToTouch: 0.2
 --- !u!1 &1289157262
 GameObject:
   m_ObjectHideFlags: 0

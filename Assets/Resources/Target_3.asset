@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadac26e8194b9489c40a5671b4bb31, type: 3}
   m_Name: Target_3
   m_EditorClassIdentifier: 
-  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  minSpeedRot: -0.39
-  maxSpeedRot: 0.45
-  timeForAccelerate: 4.93
-  isRandomSpeed: 0
+  sprite: {fileID: 21300000, guid: 92a0c1fba821aaa4a9f32d18056b3990, type: 3}
+  minSpeedRot: -0.21
+  maxSpeedRot: 0.14
+  timeForAccelerate: 1.52
+  isRandomSpeed: 1
   chanceForApple: 50
   chanceForKnife: 50
   applePrefab: {fileID: 2996028451148061936, guid: 65b112663eb8e3e44bb857166089350d, type: 3}

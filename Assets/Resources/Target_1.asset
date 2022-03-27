@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadac26e8194b9489c40a5671b4bb31, type: 3}
   m_Name: Target_1
   m_EditorClassIdentifier: 
-  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  sprite: {fileID: 21300000, guid: 71d3d712db406c64ca35a7e6ef628075, type: 3}
   minSpeedRot: 0.15
   maxSpeedRot: 0.15
   timeForAccelerate: 0.49
