@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetData: {fileID: 11400000, guid: 2175507361f181d4eb6447ccda0960f2, type: 2}
+  isShake: 0
   Spots:
   - {fileID: 4288526068376431332}
   - {fileID: 3208216509304997512}

@@ -878,6 +878,7 @@ GameObject:
   - component: {fileID: 1234059286}
   - component: {fileID: 1234059285}
   - component: {fileID: 1234059288}
+  - component: {fileID: 1234059289}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -964,7 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabKnife: {fileID: 6846367172743345542, guid: f32be6192b571284296695832b744d13, type: 3}
   prefabDestroyedApple: {fileID: 1801633916540230782, guid: 967ad22daec9aa647974341ca9ab83de, type: 3}
-  prefabDestroyedTarget: {fileID: 1797261859566750200, guid: a18ad4a89c4d65747a33b0a220af8c3a, type: 3}
+  prefabDestroyedTarget: {fileID: 0}
   prefabSparks: {fileID: 1686427812575984388, guid: 198603b9cf914ac48be940f8f49b7d82, type: 3}
   stageData:
   - {fileID: 11400000, guid: 5f5130af29cb3c9418502a48c7124581, type: 2}
@@ -974,6 +975,22 @@ MonoBehaviour:
   knivesCount: 5
   nextStage: 0
   target: {fileID: 0}
+--- !u!114 &1234059289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234059284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab8353b5ebd32545867da143199a814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultPosInfluence: {x: 0.15, y: 0.15, z: -10}
+  DefaultRotInfluence: {x: 1, y: 1, z: -10}
+  RestPositionOffset: {x: 0, y: 0, z: -10}
+  RestRotationOffset: {x: 0, y: 0, z: -10}
 --- !u!1 &1289157262
 GameObject:
   m_ObjectHideFlags: 0

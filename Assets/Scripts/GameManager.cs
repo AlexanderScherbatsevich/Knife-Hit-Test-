@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using EZCameraShake;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,8 +83,9 @@ public class GameManager : MonoBehaviour
         switch (tag)
         {
             case "Target":
-                CreateKnife();
-                ShakeAndFlash(go);
+                ShakeAndFlash();
+                target.GetComponent<Target>().isShake = true;
+                CreateKnife();                
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
                 Destroy(sGO, 1f);                
@@ -101,20 +103,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //починить!!!
-    public void ShakeAndFlash(GameObject go)
-    {      
-            Vector2 tPos = go.transform.position;
-            LeanTween.moveLocal(go, new Vector3(0, 1.65f, 0f),
-                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
-            LeanTween.moveLocal(go, new Vector3(0, 1.5f, 0f),
-                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
-            //transform.position = tPos;
-            Color col = go.GetComponent<SpriteRenderer>().color;
-            LeanTween.color(go, Color.white, 0.5f);
-            //sRend.color = Color.white;
-            LeanTween.color(go, col, 0.5f);
-            //sRend.color = col;        
+    public void ShakeAndFlash()
+    {        
+        LeanTween.moveLocal(target, new Vector3(0, 1.55f, 0f),
+                    0.05f).setEase(LeanTweenType.easeOutQuint); 
+        
+        LeanTween.moveLocal(target, new Vector3(0, 1.5f, 0f),
+                    0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);  
+
+        Color col = target.GetComponent<SpriteRenderer>().color;
+        LeanTween.color(target, Color.white, 0.1f);
+        LeanTween.color(target, col, 0.1f);        
     }
 
     private void CreateStage(StageData stage)
@@ -143,9 +142,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator DestroyTarget()
     {
         Destroy(target);
-        yield return null;
-        //Instantiate(prefabDestroyedTarget); 
+        yield return null; 
         Instantiate(stageData[nextStage -1].prefabDestroyedTarget);
+        yield return null;
+        CameraShaker.Instance.ShakeOnce(3f, 3f, 0.1f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         if (nextStage < stageData.Length)
         {

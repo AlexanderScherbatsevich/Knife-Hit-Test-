@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    //public Animation shakeAndFlash;
     public TargetData targetData;
     private float minRotSpeed;
     private float maxRotSpeed;
     private float timeForAccelerate;
     private bool isRandomSpeed;
+    //[HideInInspector]
+    public bool isShake = false;
     private SpriteRenderer sRend;
     private float timeStart;
     private float angle = 1000;
@@ -33,8 +34,6 @@ public class Target : MonoBehaviour
         Invoke("SetSpots", 0.3f);
 
         StartCoroutine(VariableRotate());
-
-        GameManager.OnHitted += ShakeAndFlash;
     }
 
     private IEnumerator VariableRotate()
@@ -65,29 +64,7 @@ public class Target : MonoBehaviour
     {
         minRotSpeed = Random.Range(minRotSpeed, maxRotSpeed);
         timeForAccelerate = Random.Range(0.01f, timeForAccelerate);
-    }
-
-    // переделать!!!!
-    public void ShakeAndFlash(Collider2D collision)
-    {
-        string tag = collision.gameObject.tag;
-        if (tag == this.gameObject.tag)
-        {
-            Vector2 tPos = transform.position;
-            LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.65f, 0f),
-                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
-            LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.5f, 0f),
-                    0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutQuint);
-            //transform.position = tPos;
-            Color col = sRend.color;
-            LeanTween.color(this.gameObject, Color.white, 0.5f);
-            //sRend.color = Color.white;
-            LeanTween.color(this.gameObject, col, 0.5f);
-            //sRend.color = col;
-        }
-    }   
-
-
+    }  
 
     public void SetSpots()
     {
@@ -142,11 +119,6 @@ public class Target : MonoBehaviour
             Spots.RemoveAt(ndx);
         }
         Spots = tSpots; 
-    }
-
-    private void OnDisable()
-    {
-        GameManager.OnHitted -= ShakeAndFlash;
     }
 
     //public void VariableRotate()
