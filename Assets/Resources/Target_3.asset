@@ -15,7 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 92a0c1fba821aaa4a9f32d18056b3990, type: 3}
   minSpeedRot: -0.2
   maxSpeedRot: 0.2
-  timeForAccelerate: 1
+  timeForAccelerate: 1.99
   isRandomSpeed: 1
   chanceForApple: 50
   chanceForKnife: 50

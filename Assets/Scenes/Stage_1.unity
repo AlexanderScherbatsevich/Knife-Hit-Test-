@@ -990,7 +990,7 @@ MonoBehaviour:
   DefaultPosInfluence: {x: 0.15, y: 0.15, z: -10}
   DefaultRotInfluence: {x: 1, y: 1, z: -10}
   RestPositionOffset: {x: 0, y: 0, z: -10}
-  RestRotationOffset: {x: 0, y: 0, z: -10}
+  RestRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1289157262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1140,17 +1140,17 @@ MonoBehaviour:
   gamePanel: {fileID: 0}
   scoreCountText: {fileID: 5873070010176872871}
   stageName: {fileID: 5873070011228857662}
-  knivesCount:
-  - {fileID: 5873070010172872153}
-  - {fileID: 5873070010750230254}
-  - {fileID: 5873070010341511206}
-  - {fileID: 5873070009427546400}
-  - {fileID: 5873070010680404214}
-  - {fileID: 5873070009567043201}
-  - {fileID: 5873070010202637096}
-  - {fileID: 5873070009603149180}
-  - {fileID: 5873070009756830670}
+  knivesUI:
   - {fileID: 5873070011104549373}
+  - {fileID: 5873070009756830670}
+  - {fileID: 5873070009603149180}
+  - {fileID: 5873070010202637096}
+  - {fileID: 5873070009567043201}
+  - {fileID: 5873070010680404214}
+  - {fileID: 5873070009427546400}
+  - {fileID: 5873070010341511206}
+  - {fileID: 5873070010750230254}
+  - {fileID: 5873070010172872153}
   menuPanel: {fileID: 0}
   highScoreText: {fileID: 0}
   maxStage: {fileID: 0}

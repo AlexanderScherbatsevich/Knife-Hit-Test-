@@ -53,8 +53,7 @@ public class GameManager : MonoBehaviour
     public void CreateKnife()
     {
         if (knivesCount > 0)
-        {
-            
+        {           
              knife = Instantiate(prefabKnife, 
                 new Vector2(0, -6f), Quaternion.identity);
             LeanTween.moveLocal(knife, new Vector2(0, -3f),
@@ -143,10 +142,12 @@ public class GameManager : MonoBehaviour
     {
         Destroy(target);
         yield return null; 
-        Instantiate(stageData[nextStage -1].prefabDestroyedTarget);
+        var go = Instantiate(stageData[nextStage -1].prefabDestroyedTarget);
         yield return null;
         CameraShaker.Instance.ShakeOnce(3f, 3f, 0.1f, 0.3f);
         yield return new WaitForSeconds(1.5f);
+        Destroy(go);
+        yield return null;
         if (nextStage < stageData.Length)
         {
             CreateStage(stageData[nextStage]);

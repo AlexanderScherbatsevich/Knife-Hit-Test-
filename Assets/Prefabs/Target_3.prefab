@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463271121928040}
   - component: {fileID: 4288526068376431332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_1
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463271027299028}
   - component: {fileID: 3208216509304997512}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_2
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463271037223671}
   - component: {fileID: 4369881908551690979}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_5
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463271697195734}
   - component: {fileID: 8734438590242536978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_6
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463272079624622}
   - component: {fileID: 4587877125180796378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_7
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463272084722455}
   - component: {fileID: 1015462901064708304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_8
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463272111955819}
   - component: {fileID: 4357285785412614521}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_3
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6470463272427853969}
   - component: {fileID: 5571473358063279850}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_4
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 6909800900995731114}
   - component: {fileID: 6909800900995731031}
   - component: {fileID: 6909800900995731028}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target_3
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetData: {fileID: 11400000, guid: 220de759813e5494cb3ad011377b1e93, type: 2}
+  isShake: 0
   Spots:
   - {fileID: 4288526068376431332}
   - {fileID: 3208216509304997512}

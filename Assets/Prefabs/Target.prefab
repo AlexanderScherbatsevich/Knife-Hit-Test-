@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2237138049348129076}
   - component: {fileID: 2237138049348129225}
   - component: {fileID: 2237138049348129226}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Target
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetData: {fileID: 11400000, guid: 47d9676da512e90498cbda5d2d463fe1, type: 2}
+  isShake: 0
   Spots:
   - {fileID: 8893630425574274426}
   - {fileID: 7812264957244512534}
@@ -140,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808711965592906}
   - component: {fileID: 7812264957244512534}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_2
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -184,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808711971396969}
   - component: {fileID: 8956412871739225469}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_5
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -228,7 +229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808711921803510}
   - component: {fileID: 8893630425574274426}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_1
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -272,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808712695187215}
   - component: {fileID: 990435662203945332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_4
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -316,7 +317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808713023147145}
   - component: {fileID: 5690514030359031630}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_8
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -360,7 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808713026377264}
   - component: {fileID: 9170467440309252676}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_7
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -404,7 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808713045983477}
   - component: {fileID: 8977734725548451559}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_3
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -448,7 +449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811808713713433928}
   - component: {fileID: 4168529928632869260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Spot_6
   m_TagString: Target
   m_Icon: {fileID: 0}

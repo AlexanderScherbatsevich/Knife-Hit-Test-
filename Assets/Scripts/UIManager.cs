@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
     public Transform gamePanel;
     public Text scoreCountText;
     public Text stageName;
-    public GameObject[] knivesCount;
+    public GameObject[] knivesUI;
 
     [Header("MenuPanel")]
     public Transform menuPanel;
@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [HideInInspector]
     public int nextStage = 0;
     public Text stageNameGO;
+    private int knivesCount;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
             GameManager.OnHitted += IsHitted;
             GameManager.GameWin += CreateNextStage;
             GameManager.GameLost += DelayToGameOver;
+            GameManager.OnTouched += RemoveKnife;
         }
 
         if (PlayerPrefs.HasKey("ApplesCount"))
@@ -88,20 +90,14 @@ public class UIManager : MonoBehaviour
     }
     //========================================================================================================================
 
-    public void ShowKnivesUI(int count)
-    {       
-        for (int i = 0; i < count; i++)
-        {
-            knivesCount[i].SetActive(true);         
-        }
-    }
+
 
     public void IsHitted(Collider2D col)
     {
         var go = col.gameObject;
         string tag = col.gameObject.tag;
         int value = int.Parse(scoreCountText.text);
-        knivesCount[value].GetComponent<Image>().color = Color.black;
+        //knivesCount[value].GetComponent<Image>().color = Color.black;
 
         if (tag == "Target")
         {                     
@@ -137,14 +133,29 @@ public class UIManager : MonoBehaviour
 
     private void CreateStageUI(StageData stage)
     {
-        ShowKnivesUI(stage.freeKnivesCount);
+        ShowKnivesUI(stage.freeKnivesCount );
+        knivesCount = stage.freeKnivesCount;
         for (int i = 0; i < stage.freeKnivesCount; i++)
         {
-            knivesCount[i].GetComponent<Image>().color = Color.white;
+            knivesUI[i].GetComponent<Image>().color = Color.white;
         }
         scoreCountText.text = "0";
         stageName.text = stage.stageName;
         nextStage++;
+    }
+
+    public void ShowKnivesUI(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            knivesUI[i].SetActive(true);
+        }
+    }
+
+    public void RemoveKnife()
+    {
+        knivesUI[knivesCount - 1].GetComponent<Image>().color = Color.black;
+        knivesCount--;
     }
 
     private void CreateNextStage()
@@ -205,5 +216,6 @@ public class UIManager : MonoBehaviour
         GameManager.OnHitted -= IsHitted;
         GameManager.GameWin -= CreateNextStage;
         GameManager.GameLost -= DelayToGameOver;
+        GameManager.OnTouched -= RemoveKnife;
     }
 }

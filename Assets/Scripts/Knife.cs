@@ -49,6 +49,7 @@ public class Knife : MonoBehaviour
         {
             GameManager.OnTouched -= Move;
             this.gameObject.tag = "Knife";
+            this.gameObject.layer = 7;
             this.gameObject.transform.SetParent(go.transform);
             rb.bodyType = RigidbodyType2D.Static;
             rb.sleepMode = RigidbodySleepMode2D.StartAsleep;            
@@ -60,10 +61,6 @@ public class Knife : MonoBehaviour
             rb.SetRotation(Random.Range(-180f, 180f));            
         }
     }
-    //public void DestroyKnife()
-    //{
-    //    Destroy(this.gameObject, 0.5f);
-    //}
 
     private void OnDisable()
     {
