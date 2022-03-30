@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     public int nextStage = 0;
     public Text stageNameGO;
     private int knivesCount;
+    private int score;
 
     private void Awake()
     {
@@ -41,11 +42,15 @@ public class UIManager : MonoBehaviour
     {      
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
+            scoreCountText.text = "0";
             CreateStageUI(stageData[0]);
             GameManager.OnHitted += IsHitted;
             GameManager.GameWin += CreateNextStage;
             GameManager.GameLost += DelayToGameOver;
             GameManager.OnTouched += RemoveKnife;
+            GameManager.GameWin += CheckHighscore;
+            GameManager.GameLost += CheckHighscore;
+            GameManager.GameWin += CheckMaxStage;
         }
 
         if (PlayerPrefs.HasKey("ApplesCount"))
@@ -96,13 +101,12 @@ public class UIManager : MonoBehaviour
     {
         var go = col.gameObject;
         string tag = col.gameObject.tag;
-        int value = int.Parse(scoreCountText.text);
-        //knivesCount[value].GetComponent<Image>().color = Color.black;
+        score = int.Parse(scoreCountText.text);
 
         if (tag == "Target")
-        {                     
-            value++;
-            scoreCountText.text = value.ToString();
+        {
+            score++;
+            scoreCountText.text = score.ToString();
         }
         else if (tag == "Apple")
         {
@@ -113,8 +117,8 @@ public class UIManager : MonoBehaviour
         }
         else if(tag == "Knife")
         {
-            CheckHighscore(int.Parse(scoreCountText.text));
-            CheckMaxStage(nextStage - 1);
+            //CheckHighscore(int.Parse(scoreCountText.text));
+            //CheckMaxStage(nextStage - 1);
             PlayerPrefs.SetString("LastStage", stageName.text);
         }
     }
@@ -139,7 +143,7 @@ public class UIManager : MonoBehaviour
         {
             knivesUI[i].GetComponent<Image>().color = Color.white;
         }
-        scoreCountText.text = "0";
+        //scoreCountText.text = "0";
         stageName.text = stage.stageName;
         nextStage++;
     }
@@ -163,7 +167,7 @@ public class UIManager : MonoBehaviour
         CreateStageUI(stageData[nextStage]);
     }
 
-    private void CheckHighscore(int score)
+    private void CheckHighscore()
     {
         if (score > HighScore)
         {
@@ -172,11 +176,12 @@ public class UIManager : MonoBehaviour
         }        
     }
 
-    private void CheckMaxStage(int stageNumber)
+    private void CheckMaxStage()
     {
-        if (stageNumber > MaxStage)
+        int value = nextStage - 1;
+        if (value > MaxStage)
         {
-            MaxStage = stageNumber;
+            MaxStage = value;
             PlayerPrefs.SetInt("MaxStage", MaxStage);
         }
     }
@@ -217,5 +222,8 @@ public class UIManager : MonoBehaviour
         GameManager.GameWin -= CreateNextStage;
         GameManager.GameLost -= DelayToGameOver;
         GameManager.OnTouched -= RemoveKnife;
+        GameManager.GameWin -= CheckHighscore;
+        GameManager.GameLost -= CheckHighscore;
+        GameManager.GameWin -= CheckMaxStage;
     }
 }

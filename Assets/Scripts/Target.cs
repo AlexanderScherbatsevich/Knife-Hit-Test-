@@ -64,39 +64,37 @@ public class Target : MonoBehaviour
     {
         minRotSpeed = Random.Range(minRotSpeed, maxRotSpeed);
         timeForAccelerate = Random.Range(0.01f, timeForAccelerate);
-    }  
+    }
 
     public void SetSpots()
     {
-        float chanceApple = targetData.chanceForApple / 100;
-        float chanceKnife = targetData.chanceForKnife / 100;
+        int chanceApple = targetData.chanceForApple;
+        int chanceKnife = targetData.chanceForKnife;
+        int randomValue = Random.Range(1, 100);
 
-        if (Random.value <= chanceApple)
-        {
-            int countApples = Random.Range(1, 4);
-            for (int i = 0; i < countApples; i++)
+        SetItem(Random.Range(30, 100),
+            chanceKnife, SpotType.knife, targetData.knifePrefab);
+
+        SetItem(randomValue, chanceApple, SpotType.apple, targetData.applePrefab);
+    }
+    public void SetItem(int randomValue, int chance, SpotType type, GameObject prefab)
+    {
+        Debug.Log($"randomValue = {randomValue}");
+        if (randomValue <= chance)
+        {          
+            int countItems = Mathf.FloorToInt(chance / randomValue);
+            Debug.Log( $"count = {countItems}");
+            for (int i = 0; i < countItems; i++)
             {
                 Spot s = GetEmptySpot();
                 if (s != null)
                 {
-                    s.SetType(SpotType.apple, targetData.applePrefab);
+                    s.SetType(type, prefab);
                 }
                 else return;
             }
         }
-        if (Random.value <= chanceKnife)
-        {
-            int countKnifes = Random.Range(1, 4);
-            for (int i = 0; i < countKnifes; i++)
-            {
-                Spot s = GetEmptySpot();
-                if (s != null)
-                {
-                    s.SetType(SpotType.knife, targetData.knifePrefab);
-                }
-                else return;
-            }
-        }
+        else return;
     }
 
     Spot GetEmptySpot()

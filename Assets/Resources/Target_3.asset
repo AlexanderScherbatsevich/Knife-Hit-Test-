@@ -15,9 +15,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 92a0c1fba821aaa4a9f32d18056b3990, type: 3}
   minSpeedRot: -0.2
   maxSpeedRot: 0.2
-  timeForAccelerate: 1.99
+  timeForAccelerate: 4
   isRandomSpeed: 1
-  chanceForApple: 50
-  chanceForKnife: 50
+  chanceForApple: 25
+  chanceForKnife: 100
   applePrefab: {fileID: 2996028451148061936, guid: 65b112663eb8e3e44bb857166089350d, type: 3}
   knifePrefab: {fileID: 6846367172743345542, guid: 2af503bff4de56a4caaa9f5a013c5f4a, type: 3}

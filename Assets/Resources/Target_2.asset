@@ -17,7 +17,7 @@ MonoBehaviour:
   maxSpeedRot: 0.2
   timeForAccelerate: 4
   isRandomSpeed: 0
-  chanceForApple: 20
-  chanceForKnife: 20
+  chanceForApple: 25
+  chanceForKnife: 100
   applePrefab: {fileID: 2996028451148061936, guid: 65b112663eb8e3e44bb857166089350d, type: 3}
   knifePrefab: {fileID: 6846367172743345542, guid: 2af503bff4de56a4caaa9f5a013c5f4a, type: 3}

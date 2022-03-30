@@ -11,10 +11,10 @@ public class TargetData : ScriptableObject
     [Range(0.01f, 10f)]
     public float timeForAccelerate;
     public bool isRandomSpeed;
-    [Range(0f, 100f)]
-    public float chanceForApple;
-    [Range(0f, 100f)]
-    public float chanceForKnife;
+    [Range(0, 100)]
+    public int chanceForApple;
+    [Range(0, 100)]
+    public int chanceForKnife;
     public GameObject applePrefab;
     public GameObject knifePrefab;
 }

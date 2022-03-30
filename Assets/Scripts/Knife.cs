@@ -15,7 +15,6 @@ public class Knife : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         if(this.gameObject.tag == "New Knife") 
             GameManager.OnTouched += Move;
-        //GameManager.GameLost += DestroyKnife;
 
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.sleepMode = RigidbodySleepMode2D.StartAwake;

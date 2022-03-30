@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
 
     public void ShakeAndFlash()
     {        
-        LeanTween.moveLocal(target, new Vector3(0, 1.55f, 0f),
+        LeanTween.moveLocal(target, new Vector3(0, 1.6f, 0f),
                     0.05f).setEase(LeanTweenType.easeOutQuint); 
         
         LeanTween.moveLocal(target, new Vector3(0, 1.5f, 0f),
@@ -154,6 +154,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            GameWin?.Invoke();
+            //yield return null;
             SceneManager.LoadScene(0);
         }          
         yield return null;
