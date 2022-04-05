@@ -9,13 +9,7 @@ public enum SpotType
 
 public class Spot : MonoBehaviour
 {
-    //private SpotType _type = SpotType.none;
     public SpotType type = SpotType.none;
-    //public SpotType type
-    //{
-    //    get { return (_type); }
-    //    set { SetType(value, prefab); }
-    //}
 
     public void SetType(SpotType st, GameObject prefab)
     {

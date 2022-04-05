@@ -16,5 +16,5 @@ MonoBehaviour:
   stageName: Stage 3
   Target: {fileID: 6909800900995731115, guid: ba24e8a00248e9640900129151487fe7, type: 3}
   prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
-  freeKnivesCount: 10
+  freeKnivesCount: 9
   newKnifeSkin: {fileID: 0}

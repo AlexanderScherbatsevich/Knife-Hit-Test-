@@ -5,9 +5,6 @@ public class UITween : MonoBehaviour
 {
     public GameObject panel, startButton, quitButtom, gameName, testText;
 
-    //[Header("Game")]
-    //public GameObject panel, startButton, quitButtom, gameName;
-
     public GameObject stageNameGO, restartButton, goToMenuButtom;
 
     void Start()

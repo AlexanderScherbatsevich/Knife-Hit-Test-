@@ -9,7 +9,6 @@ public class Target : MonoBehaviour
     private float maxRotSpeed;
     private float timeForAccelerate;
     private bool isRandomSpeed;
-    //[HideInInspector]
     public bool isShake = false;
     private SpriteRenderer sRend;
     private float timeStart;
@@ -30,7 +29,6 @@ public class Target : MonoBehaviour
 
         timeStart = Time.time;
         ShuffleSpot(ref Spots);
-        //SetSpots();
         Invoke("SetSpots", 0.3f);
 
         StartCoroutine(VariableRotate());
@@ -118,26 +116,6 @@ public class Target : MonoBehaviour
         }
         Spots = tSpots; 
     }
-
-    //public void VariableRotate()
-    //{
-    //    float u = (Time.time - timeStart) / timeForAccelerate;
-    //    if(u >= 1)
-    //    {
-    //        float tSpeed = minRotSpeed;
-    //        minRotSpeed = maxRotSpeed;
-    //        maxRotSpeed = tSpeed;
-    //        timeStart = Time.time;
-    //    }
-
-    //    float tSpeedRot = (1 - u) * minRotSpeed + u * maxRotSpeed;
-    //    angleRot += tSpeedRot * angle * Time.deltaTime;
-    //    q = Quaternion.AngleAxis(angleRot, Vector3.back);
-    //    transform.rotation = q;
-
-    //    //angleRot += tSpeedRot * Time.deltaTime;
-    //    //transform.rotation *= Quaternion.Euler(0, 0, angleRot);
-    //}
 }
 
 

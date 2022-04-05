@@ -118,7 +118,7 @@ public class UIManager : MonoBehaviour
         else if(tag == "Knife")
         {
             //CheckHighscore(int.Parse(scoreCountText.text));
-            //CheckMaxStage(nextStage - 1);
+            CheckMaxStage();
             PlayerPrefs.SetString("LastStage", stageName.text);
         }
     }
@@ -143,7 +143,6 @@ public class UIManager : MonoBehaviour
         {
             knivesUI[i].GetComponent<Image>().color = Color.white;
         }
-        //scoreCountText.text = "0";
         stageName.text = stage.stageName;
         nextStage++;
     }
@@ -164,7 +163,9 @@ public class UIManager : MonoBehaviour
 
     private void CreateNextStage()
     {
-        CreateStageUI(stageData[nextStage]);
+        if (nextStage < stageData.Length)
+            CreateStageUI(stageData[nextStage]);
+        else return;
     }
 
     private void CheckHighscore()
@@ -176,10 +177,11 @@ public class UIManager : MonoBehaviour
         }        
     }
 
-    private void CheckMaxStage()
+    public void CheckMaxStage()
     {
-        int value = nextStage - 1;
-        if (value > MaxStage)
+        int value = nextStage ;
+        MaxStage = PlayerPrefs.GetInt("MaxStage");
+        if (value >= MaxStage)
         {
             MaxStage = value;
             PlayerPrefs.SetInt("MaxStage", MaxStage);

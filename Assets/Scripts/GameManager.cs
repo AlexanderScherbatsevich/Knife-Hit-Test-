@@ -7,7 +7,6 @@ using EZCameraShake;
 public class GameManager : MonoBehaviour
 {
     [HideInInspector]
-    //public static bool isKnifeInTarget = false;
     public static bool isGameOver = false;
     public static GameManager S;
     public GameObject prefabKnife;
@@ -16,11 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject prefabSparks;
     public StageData[] stageData;
     public float delayBetweenThrows;
-    //public delegate void OnTouch();
     public static event Action OnTouched;
     public static event Action GameWin;
     public static Action GameLost;
-    public static Action <Collider2D> OnHitted;
+    public static Action<Collider2D> OnHitted;
     [HideInInspector]
     public int knivesCount;
     [HideInInspector]
@@ -31,6 +29,7 @@ public class GameManager : MonoBehaviour
     private GameObject knife;
     void Start()
     {
+        Vibration.Init();
         OnHitted += CheckCollider;
         GameLost += DestroyKnife;
         CreateStage(stageData[0]);
@@ -39,10 +38,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0)
         {
             if (Time.time - lastThrowTime < delayBetweenThrows) return;
-            else 
+            else
             {
                 OnTouched?.Invoke();
                 lastThrowTime = Time.time;
@@ -53,21 +52,17 @@ public class GameManager : MonoBehaviour
     public void CreateKnife()
     {
         if (knivesCount > 0)
-        {           
-             knife = Instantiate(prefabKnife, 
-                new Vector2(0, -6f), Quaternion.identity);
-            LeanTween.moveLocal(knife, new Vector2(0, -3f),
-                0.2f).setDelay(0.2f).setEase(LeanTweenType.easeOutExpo);
+        {
+            knife = Instantiate(prefabKnife,
+               new Vector2(0, -6f), Quaternion.identity);
+            LeanTween.moveLocal(knife,
+                new Vector2(0, -3f), 0.2f).setEase(LeanTweenType.easeOutExpo);
+
             knivesCount--;
         }
         else if (knivesCount <= 0)
         {
             StartToDestroyTarget();
-            //if (nextStage < stageData.Length)
-            //    CreateStage(stageData[nextStage]);
-            //else return;
-
-            //GameWin?.Invoke();
         }
     }
 
@@ -82,20 +77,21 @@ public class GameManager : MonoBehaviour
         switch (tag)
         {
             case "Target":
-                ShakeAndFlash();
+                Vibration.VibratePop();
+                ShakeAndFlash();               
                 target.GetComponent<Target>().isShake = true;
-                CreateKnife();                
+                CreateKnife();
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
-                Destroy(sGO, 1f);                
+                Destroy(sGO, 1f);
                 break;
-            case "Apple":              
+            case "Apple":
                 Instantiate(prefabDestroyedApple,
-                    go.transform.position,go.transform.rotation);
-                Destroy(go);              
+                    go.transform.position, go.transform.rotation);
+                Destroy(go);
                 break;
             case "Knife":
-                
+                Vibration.VibratePeek();
                 break;
             default:
                 break;
@@ -103,16 +99,16 @@ public class GameManager : MonoBehaviour
     }
 
     public void ShakeAndFlash()
-    {        
+    {
         LeanTween.moveLocal(target, new Vector3(0, 1.6f, 0f),
-                    0.05f).setEase(LeanTweenType.easeOutQuint); 
-        
+                    0.05f).setEase(LeanTweenType.easeOutQuint);
+
         LeanTween.moveLocal(target, new Vector3(0, 1.5f, 0f),
-                    0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);  
+                    0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);
 
         Color col = target.GetComponent<SpriteRenderer>().color;
         LeanTween.color(target, Color.white, 0.1f);
-        LeanTween.color(target, col, 0.1f);        
+        LeanTween.color(target, col, 0.1f);
     }
 
     private void CreateStage(StageData stage)
@@ -125,12 +121,10 @@ public class GameManager : MonoBehaviour
         nextStage++;
     }
 
-
     private void OnDisable()
     {
         OnHitted -= CheckCollider;
         GameLost -= DestroyKnife;
-
     }
 
     public void StartToDestroyTarget()
@@ -144,6 +138,8 @@ public class GameManager : MonoBehaviour
         yield return null; 
         var go = Instantiate(stageData[nextStage -1].prefabDestroyedTarget);
         yield return null;
+        Vibration.Vibrate();
+        yield return null;
         CameraShaker.Instance.ShakeOnce(3f, 3f, 0.1f, 0.3f);
         yield return new WaitForSeconds(1.5f);
         Destroy(go);
@@ -155,7 +151,7 @@ public class GameManager : MonoBehaviour
         else
         {
             GameWin?.Invoke();
-            //yield return null;
+            yield return null;
             SceneManager.LoadScene(0);
         }          
         yield return null;

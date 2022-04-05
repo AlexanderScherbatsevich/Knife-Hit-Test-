@@ -9,9 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: c2f7f03ae65715949b1b4515f49aa0e6
   - enabled: 1
-    path: Assets/Scenes/Stage_1.unity
+    path: Assets/Scenes/Game.unity
     guid: 460dcc7828a5a3b4db50a55497478aed
   - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: f03d698b03772ec428984866b88b907b
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 56b5c1df3b805284b8b20499b4d830d3, type: 2}

@@ -415,10 +415,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 2160}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -971,7 +971,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5f5130af29cb3c9418502a48c7124581, type: 2}
   - {fileID: 11400000, guid: fcc6d0988817b764299252c319a05091, type: 2}
   - {fileID: 11400000, guid: 779b3c5fe611cd84ea7d3192f722d3d1, type: 2}
-  delayBetweenThrows: 0.2
+  delayBetweenThrows: 0.3
   knivesCount: 5
   nextStage: 0
   target: {fileID: 0}
@@ -1170,6 +1170,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3668403403132731180, guid: 20fbab51a245156439b0b1aee41d4db0, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668403403132731181, guid: 20fbab51a245156439b0b1aee41d4db0, type: 3}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3668403403132731182, guid: 20fbab51a245156439b0b1aee41d4db0, type: 3}
@@ -1823,9 +1827,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 184.2217, y: 183.7614}
+  m_SizeDelta: {x: -895.7783, y: 183.7614}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5873070010176872868
 CanvasRenderer:
@@ -2361,6 +2365,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1881232186}
     m_Modifications:
+    - target: {fileID: 7784280367282561521, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784280367282561521, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -895.7783
+      objectReference: {fileID: 0}
     - target: {fileID: 7784280367503942036, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
       propertyPath: m_Name
       value: AppleCount
@@ -2448,6 +2460,18 @@ PrefabInstance:
     - target: {fileID: 7784280367503942037, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784280367503942039, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784280367503942039, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784280367503942039, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 2160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab1ad313ec823b84d8cb2a4884f9edf1, type: 3}

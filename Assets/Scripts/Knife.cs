@@ -43,7 +43,6 @@ public class Knife : MonoBehaviour
         GameObject go = collision.gameObject;
         
         GameManager.OnHitted?.Invoke(collision);
-        //Debug.Log(go.name);
         if (go.tag == "Target")
         {
             GameManager.OnTouched -= Move;
@@ -59,10 +58,5 @@ public class Knife : MonoBehaviour
             rb.AddForce(new Vector2(Random.Range(-1000, -800), -force * 1));
             rb.SetRotation(Random.Range(-180f, 180f));            
         }
-    }
-
-    private void OnDisable()
-    {
-        //GameManager.GameLost -= DestroyKnife;
     }
 }
