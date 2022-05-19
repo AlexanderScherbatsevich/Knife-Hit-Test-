@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] knivesUI;
 
     [Header("MenuPanel")]
+    public Transform shopPanel;
     public Transform menuPanel;
     public Text highScoreText;
     public Text maxStage;
@@ -33,7 +34,7 @@ public class UIManager : MonoBehaviour
     public Text stageNameGO;
     private int knivesCount;
     private int score;
-
+    private bool isShopOpen = false;
     private void Awake()
     {
         Time.timeScale = 1;
@@ -92,6 +93,12 @@ public class UIManager : MonoBehaviour
     public void GoToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void OpenShop()
+    {
+        isShopOpen = !isShopOpen;
+        shopPanel.gameObject.SetActive(isShopOpen);
     }
     //========================================================================================================================
 

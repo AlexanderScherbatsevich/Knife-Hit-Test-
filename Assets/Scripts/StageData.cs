@@ -6,11 +6,11 @@ public class StageData : ScriptableObject
 {
     public StageType type = StageType.stage;
     public string stageName;
-    public GameObject Target;
+    public TargetData targetData;
     public GameObject prefabDestroyedTarget;
     [Range(1, 10)]
     public int freeKnivesCount = 0;
-    public Sprite newKnifeSkin;
+    public KnifeData openedKnife;
 
     public enum StageType
     {

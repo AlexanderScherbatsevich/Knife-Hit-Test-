@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     public static bool isGameOver = false;
     public static GameManager S;
     public GameObject prefabKnife;
+    public GameObject prefabTarget;
     public GameObject prefabDestroyedApple;
     public GameObject prefabDestroyedTarget;
     public GameObject prefabSparks;
     public StageData[] stageData;
+    public KnifeData[] knivesData;
     public float delayBetweenThrows;
     public static event Action OnTouched;
     public static event Action GameWin;
@@ -27,8 +29,11 @@ public class GameManager : MonoBehaviour
     public GameObject target;
     private float lastThrowTime;
     private GameObject knife;
+    private KnifeData _knifeData;
     void Start()
     {
+        int ID = PlayerPrefs.GetInt("SelectedKnife");
+        SelectKnifeData(ID);
         Vibration.Init();
         OnHitted += CheckCollider;
         GameLost += DestroyKnife;
@@ -38,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
             if (Time.time - lastThrowTime < delayBetweenThrows) return;
             else
@@ -49,12 +54,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SelectKnifeData(int ID)
+    {
+        for (int i = 0; i < knivesData.Length; i++)
+        {
+            if (ID == knivesData[i].ID)
+                _knifeData = knivesData[i];
+        }
+    }
     public void CreateKnife()
     {
         if (knivesCount > 0)
         {
             knife = Instantiate(prefabKnife,
                new Vector2(0, -6f), Quaternion.identity);
+            knife.GetComponent<Knife>().skin = _knifeData.knifeSkin;
             LeanTween.moveLocal(knife,
                 new Vector2(0, -3f), 0.2f).setEase(LeanTweenType.easeOutExpo);
 
@@ -79,7 +93,6 @@ public class GameManager : MonoBehaviour
             case "Target":
                 Vibration.VibratePop();
                 ShakeAndFlash();               
-                target.GetComponent<Target>().isShake = true;
                 CreateKnife();
                 var sGO = Instantiate(prefabSparks);
                 sGO.GetComponent<ParticleSystem>().Play();
@@ -100,20 +113,21 @@ public class GameManager : MonoBehaviour
 
     public void ShakeAndFlash()
     {
-        LeanTween.moveLocal(target, new Vector3(0, 1.6f, 0f),
+        LeanTween.moveLocal(target, new Vector3(0, 1.65f, 0f),
                     0.05f).setEase(LeanTweenType.easeOutQuint);
 
         LeanTween.moveLocal(target, new Vector3(0, 1.5f, 0f),
                     0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);
 
         Color col = target.GetComponent<SpriteRenderer>().color;
-        LeanTween.color(target, Color.white, 0.1f);
-        LeanTween.color(target, col, 0.1f);
+        LeanTween.color(target, Color.white, 0.05f);
+        LeanTween.color(target, col, 0.05f).setDelay(0.1f);
     }
 
     private void CreateStage(StageData stage)
     {
-        target = Instantiate(stage.Target);
+        target = Instantiate(prefabTarget);
+        target.GetComponent<Target>().targetData = stage.targetData;
         LeanTween.scale(target, new Vector3(1.5f, 1.5f, 1f),
                 0.3f).setDelay(0.3f).setEase(LeanTweenType.easeOutCubic);
         knivesCount = stage.freeKnivesCount;

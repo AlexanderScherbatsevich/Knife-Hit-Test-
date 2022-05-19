@@ -9,7 +9,6 @@ public class Target : MonoBehaviour
     private float maxRotSpeed;
     private float timeForAccelerate;
     private bool isRandomSpeed;
-    public bool isShake = false;
     private SpriteRenderer sRend;
     private float timeStart;
     private float angle = 1000;
@@ -18,7 +17,7 @@ public class Target : MonoBehaviour
     [SerializeField]
     private List<Spot> Spots;
 
-    private void Awake()
+    private void Start()
     {
         sRend = GetComponent<SpriteRenderer>();
         sRend.sprite = targetData.sprite;       
@@ -75,6 +74,7 @@ public class Target : MonoBehaviour
 
         SetItem(randomValue, chanceApple, SpotType.apple, targetData.applePrefab);
     }
+
     public void SetItem(int randomValue, int chance, SpotType type, GameObject prefab)
     {
         Debug.Log($"randomValue = {randomValue}");

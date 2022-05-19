@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac0c7ace6662b04db8855b81fe301fb, type: 3}
   m_Name: Stage_3
   m_EditorClassIdentifier: 
-  type: 0
-  stageName: Stage 3
-  Target: {fileID: 6909800900995731115, guid: ba24e8a00248e9640900129151487fe7, type: 3}
+  type: 1
+  stageName: Water Melon
+  targetData: {fileID: 11400000, guid: 220de759813e5494cb3ad011377b1e93, type: 2}
   prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
   freeKnivesCount: 9
-  newKnifeSkin: {fileID: 0}
+  openedKnife: {fileID: 11400000, guid: fde848ce241889046a2bc604ab442832, type: 2}

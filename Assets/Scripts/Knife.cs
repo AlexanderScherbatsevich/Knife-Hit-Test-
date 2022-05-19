@@ -5,12 +5,14 @@ public class Knife : MonoBehaviour
 {
     [Range(100,5000)]
     public float force;
-
+    [HideInInspector]
+    public Sprite skin;
     private Rigidbody2D rb;
     private BoundsCheck bndCheck;
 
     void Start()
     {
+        
         bndCheck = GetComponent<BoundsCheck>();
         rb = GetComponent<Rigidbody2D>();
         if(this.gameObject.tag == "New Knife") 
@@ -32,8 +34,7 @@ public class Knife : MonoBehaviour
     }
 
     public void Move()
-    {
-        
+    {       
         rb.AddForce(new Vector2(0, force));
     }
 
