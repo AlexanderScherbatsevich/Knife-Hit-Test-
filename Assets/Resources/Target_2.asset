@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadac26e8194b9489c40a5671b4bb31, type: 3}
   m_Name: Target_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 71d3d712db406c64ca35a7e6ef628075, type: 3}
-  minSpeedRot: -0.2
-  maxSpeedRot: 0.2
+  sprite: {fileID: -2722622655833522027, guid: 19956373759379f49b43dbdd4beef5d5, type: 3}
+  minSpeedRot: -0.25
+  maxSpeedRot: 0.25
   timeForAccelerate: 5
   isRandomSpeed: 0
   chanceForApple: 25

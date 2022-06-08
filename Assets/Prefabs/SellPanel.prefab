@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 524293819023056547}
   - component: {fileID: 524293819023056546}
   m_Layer: 5
-  m_Name: ChosenToggle
+  m_Name: SelectToggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 710750857967264660}
         m_TargetAssemblyTypeName: SellPanel, Assembly-CSharp
-        m_MethodName: ChooseKnife
+        m_MethodName: SelectKnife
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -636,13 +636,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knife: {fileID: 0}
   state: 0
-  chosenToggle: {fileID: 524293819023056546}
+  selectedToggle: {fileID: 524293819023056546}
   buyButton: {fileID: 524293819531904693}
   knifeImage: {fileID: 524293819104151662}
   lockImage: {fileID: 524293819202619706}
   num: {fileID: 524293817898754082}
   cost: {fileID: 524293819374465441}
   ID: 0
+  notEnoughApplesText: {fileID: 6419101386904436376, guid: c381bf9237108914a9b523635659b6cc, type: 3}
 --- !u!1 &524293819202619718
 GameObject:
   m_ObjectHideFlags: 0

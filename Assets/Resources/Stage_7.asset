@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac0c7ace6662b04db8855b81fe301fb, type: 3}
+  m_Name: Stage_7
+  m_EditorClassIdentifier: 
+  type: 0
+  stageName: Stage 7
+  targetData: {fileID: 11400000, guid: e9a47de8953f2be4d9ca2f3179bca976, type: 2}
+  prefabDestroyedTarget: {fileID: 1797261859566750200, guid: a18ad4a89c4d65747a33b0a220af8c3a, type: 3}
+  freeKnivesCount: 7
+  openedKnife: {fileID: 0}

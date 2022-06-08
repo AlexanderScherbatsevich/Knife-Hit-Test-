@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   ID: 1
-  cost: 200
+  cost: 2
   knifeSkin: {fileID: -4932968778057176126, guid: c716b07ea54c65248ab2b905b2408f96, type: 3}

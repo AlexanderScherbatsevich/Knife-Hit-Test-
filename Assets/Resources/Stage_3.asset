@@ -16,5 +16,5 @@ MonoBehaviour:
   stageName: Water Melon
   targetData: {fileID: 11400000, guid: 220de759813e5494cb3ad011377b1e93, type: 2}
   prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
-  freeKnivesCount: 9
+  freeKnivesCount: 7
   openedKnife: {fileID: 11400000, guid: fde848ce241889046a2bc604ab442832, type: 2}

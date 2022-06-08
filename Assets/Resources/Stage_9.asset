@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac0c7ace6662b04db8855b81fe301fb, type: 3}
+  m_Name: Stage_9
+  m_EditorClassIdentifier: 
+  type: 1
+  stageName: Kiwi
+  targetData: {fileID: 11400000, guid: 4550df8f96693fd4090bd2fd64a039e1, type: 2}
+  prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
+  freeKnivesCount: 9
+  openedKnife: {fileID: 11400000, guid: d894e30c3dbeb764ab71d2016917134a, type: 2}
