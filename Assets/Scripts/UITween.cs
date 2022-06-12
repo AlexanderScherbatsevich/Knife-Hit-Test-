@@ -33,8 +33,8 @@ public class UITween : MonoBehaviour
             LeanTween.scale(goToMenuButtom, new Vector3(1f, 1f, 1f),
                 1.5f).setDelay(0.5f).setEase(LeanTweenType.easeOutElastic);
 
-            LeanTween.moveLocal(stageNameGO, new Vector3(0, 700f, 0f),
-                0.5f).setDelay(0.3f).setEase(LeanTweenType.easeOutCubic);
+            LeanTween.scale(stageNameGO, new Vector3(1f, 1f, 1f),
+                1f).setDelay(0.5f).setEase(LeanTweenType.easeOutBack);
         }           
     }
 }

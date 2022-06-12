@@ -347,16 +347,16 @@ RectTransform:
   m_GameObject: {fileID: 7837720780191663498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 7837720781260058433}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 309}
+  m_AnchoredPosition: {x: 0, y: -618}
   m_SizeDelta: {x: 0, y: 301.2626}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7837720780191663498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 33a3ad1ada27e1d4091690fc693ed1b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e88bde9ae08aee4785a6c778f65d536, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1119,13 +1119,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7837720781728765306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7837720780235900078}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -156.1, y: -14.1}
@@ -1236,6 +1236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2799b92d3e57ae249988dcf659c59d06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newKnife: {fileID: 0}
   stageData:
   - {fileID: 11400000, guid: 5f5130af29cb3c9418502a48c7124581, type: 2}
   - {fileID: 11400000, guid: fcc6d0988817b764299252c319a05091, type: 2}
@@ -1245,6 +1246,7 @@ MonoBehaviour:
   scoreCountText: {fileID: 0}
   stageName: {fileID: 0}
   knivesUI: []
+  shopPanel: {fileID: 0}
   menuPanel: {fileID: 0}
   highScoreText: {fileID: 0}
   maxStage: {fileID: 0}

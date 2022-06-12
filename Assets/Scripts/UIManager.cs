@@ -134,13 +134,13 @@ public class UIManager : MonoBehaviour
 
     public void DelayToGameOver()
     {
-        StartCoroutine(DelayGameOver());
+        StartCoroutine(LoadScene(2,1f));
     }
 
-    private IEnumerator DelayGameOver()
+    private IEnumerator LoadScene(int sceneIndex, float delay)
     {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(2);
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneIndex);
     }
 
     private void CreateStageUI(StageData stage)
@@ -238,15 +238,7 @@ public class UIManager : MonoBehaviour
         stageNameGO.text = LastStage.ToString();
     }
 
-    private void OnDisable()
-    {
-        GameManager.OnCollision -= CheckCollider;
-        GameManager.GameWin -= CreateNextStage;
-        GameManager.GameLost -= DelayToGameOver;
-        GameManager.GameWin -= CheckHighscore;
-        GameManager.GameLost -= CheckHighscore;
-        GameManager.GameWin -= CheckMaxStage;
-    }
+
 
     public void SellKnife(int cost)
     {
@@ -259,6 +251,7 @@ public class UIManager : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("OpenedKnives");
         PlayerPrefs.DeleteKey("SelectedKnife");
+        KnifeKeeper.Instance.openedKnivesID.Clear();
         KnifeKeeper.Instance.SelectKnifeData(0);
         KnifeKeeper.Instance.AddOpenedKnife(0);
     }
@@ -287,4 +280,13 @@ public class UIManager : MonoBehaviour
         Destroy(openedKnife, 2.5f);
     }
 
+    private void OnDisable()
+    {
+        GameManager.OnCollision -= CheckCollider;
+        GameManager.GameWin -= CreateNextStage;
+        GameManager.GameLost -= DelayToGameOver;
+        GameManager.GameWin -= CheckHighscore;
+        GameManager.GameLost -= CheckHighscore;
+        GameManager.GameWin -= CheckMaxStage;
+    }
 }
