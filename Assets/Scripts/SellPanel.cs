@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class SellPanel : MonoBehaviour
 {
-    //public bool isOpenedKnife = false;
-    //public bool isChosenKnife = false;
-    //public bool isBuying = false;
     public KnifeData knife;
     public KnifeData.State state;
     public Toggle selectedToggle;
@@ -18,8 +15,6 @@ public class SellPanel : MonoBehaviour
     public Text notEnoughApplesText;
 
     private int _cost;
-
-    //private bool isOpenedKnife = false;
 
     public void Buy()
     {       
@@ -45,15 +40,12 @@ public class SellPanel : MonoBehaviour
         {
             ChangeState(KnifeData.State.isSelected);
             PlayerPrefs.SetInt("SelectedKnife", this.ID);
-
-            //KnifeKeeper.selectedKnife
         }
     }
 
 
     public void CreateSP(KnifeData knifeData)
     {
-        //knife = knifeData;
         state = knifeData.state;
         knifeImage.sprite = knifeData.knifeSkin;
         cost.text = knifeData.cost.ToString();
@@ -70,8 +62,6 @@ public class SellPanel : MonoBehaviour
             case KnifeData.State.isClosed:
                 break;
             case KnifeData.State.isBought:
-                //isOpenedKnife = true;
-                //this.GetComponent<Image>().color = greenCol;
                 knifeImage.color = Color.white;
                 knifeImage.gameObject.transform.SetParent(selectedToggle.transform);
                 LeanTween.moveLocal(knifeImage.gameObject, new Vector3(0, 0f, 0f),
@@ -84,7 +74,6 @@ public class SellPanel : MonoBehaviour
                 selectedToggle.gameObject.SetActive(true);
                 break;
             case KnifeData.State.isSelected:
-                //this.GetComponent<Image>().color = orangeCol;
                 knifeImage.gameObject.transform.SetParent(selectedToggle.transform);
                 LeanTween.moveLocal(knifeImage.gameObject, new Vector3(0, 0f, 0f),
                 0).setEase(LeanTweenType.easeOutCubic);

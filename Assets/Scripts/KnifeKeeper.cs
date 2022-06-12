@@ -36,14 +36,6 @@ public class KnifeKeeper : MonoBehaviour
 
     public void AddOpenedKnife(int ID)
     {
-        //if (openedKnivesID.Contains(ID)) return;
-        //else
-        //{
-        //    openedKnivesID.Add(ID);
-        //    _savedList.savedOpenedKnivesID = openedKnivesID;
-        //    PlayerPrefs.SetString("OpenedKnives", JsonUtility.ToJson(_savedList));
-        //}
-
         openedKnivesID.Add(ID);
         _savedList.savedOpenedKnivesID = openedKnivesID;
         PlayerPrefs.SetString("OpenedKnives", JsonUtility.ToJson(_savedList));

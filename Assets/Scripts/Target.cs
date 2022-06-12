@@ -36,8 +36,7 @@ public class Target : MonoBehaviour
         isRandomSpeed = targetData.isRandomSpeed;
 
         timeForAccelerateStart = Time.time;
-        ShuffleSpot(ref spotTrans);
-        //SetSpots();
+
         SetItem(targetData.chanceForKnife, targetData.knifePrefab);
         SetItem(targetData.chanceForApple, targetData.applePrefab);
 
@@ -95,26 +94,13 @@ public class Target : MonoBehaviour
             int countItems = Random.Range(1, 4);
             for (int i = 0; i < countItems; i++)
             {
-                Instantiate(prefab, spotTrans[i]);
-                spotTrans.Remove(spotTrans[i]);
+                int index = Random.Range(0, spotTrans.Count);
+                Instantiate(prefab, spotTrans[index]);
+                spotTrans.Remove(spotTrans[index]);
                 ItemsInTarget.Add(prefab);
             }
         }
         else return;
-    }
-
-    private void ShuffleSpot(ref List<Transform> Spots)
-    {
-        List<Transform> tSpots = new List<Transform>();
-        int ndx;
-        while (Spots.Count > 0)
-        {
-            ndx = Random.Range(0, Spots.Count);
-            tSpots.Add(Spots[ndx]);
-            ItemsInTarget.Add(Spots[ndx].gameObject);
-            Spots.RemoveAt(ndx);
-        }
-        Spots = tSpots;
     }
 
     //private void OnDestroy()

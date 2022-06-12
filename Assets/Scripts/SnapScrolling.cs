@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class SnapScrolling : MonoBehaviour
 {
-    public static SnapScrolling S;
-    //public KnifeData[] knivesData;
+    public static SnapScrolling Instance;
     public GameObject prefabKnifeKeeper;
     public GameObject prefabSellPanel;
     
@@ -26,7 +25,7 @@ public class SnapScrolling : MonoBehaviour
     
     private void Start()
     {
-        S = this;
+        Instance = this;
 
         Debug.Log("i'm scrolling");
         int selectedKnifeID;

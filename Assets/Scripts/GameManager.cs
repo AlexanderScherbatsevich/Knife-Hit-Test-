@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     [HideInInspector] public static bool isGameOver = false;
 
-    public static GameManager S;
+    public static GameManager Instance;
 
     public GameObject prefabKnife;
     public GameObject prefabTarget;
@@ -44,13 +44,11 @@ public class GameManager : MonoBehaviour
         _knifeData = KnifeKeeper.Instance.selectedKnife;
         Vibration.Init();
         OnCollision += CheckCollider;
-        GameWin += StopToDestroyTarget;
+        GameWin += StopToDestroyTarget;       
 
-        CreateStage(stagesData[0]);
+        queueStages = new Queue<StageData>(stagesData);
+        CreateStage(queueStages.Dequeue());
         lastThrowTime = Time.time;
-
-        //queueStages = new Queue<StageData>(stagesData);        
-        //CreateStage(queueStages.Dequeue());
     }
 
     void Update()
@@ -140,6 +138,7 @@ public class GameManager : MonoBehaviour
 
     private void CreateStage(StageData stage)
     {
+
         target = Instantiate(prefabTarget);
         target.GetComponent<Target>().targetData = stage.targetData;
 
@@ -167,24 +166,24 @@ public class GameManager : MonoBehaviour
     }
 
     //TO DO !!!!
-    private void DestroyTarget()
-    {
-        Destroy(target);
-        Vibration.Vibrate();
-        CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
+    //private void DestroyTarget()
+    //{
+    //    Destroy(target);
+    //    Vibration.Vibrate();
+    //    CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
 
-        target.transform.DetachChildren();
-        Target targetTemp = target.GetComponent<Target>();
-        for (int i = 0; i < targetTemp.ItemsInTarget.Count; i++)
-        {
-            Rigidbody2D rb = targetTemp.ItemsInTarget[i].GetComponent<Rigidbody2D>();
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.sleepMode = RigidbodySleepMode2D.StartAwake;
-            rb.AddForce(new Vector2(UnityEngine.Random.Range(-1000f,1000f),
-                UnityEngine.Random.Range(-1000f, 1000f)));
-            Destroy(targetTemp.ItemsInTarget[i], 3f);
-        }
-    }
+    //    target.transform.DetachChildren();
+    //    Target targetTemp = target.GetComponent<Target>();
+    //    for (int i = 0; i < targetTemp.ItemsInTarget.Count; i++)
+    //    {
+    //        Rigidbody2D rb = targetTemp.ItemsInTarget[i].GetComponent<Rigidbody2D>();
+    //        rb.bodyType = RigidbodyType2D.Dynamic;
+    //        rb.sleepMode = RigidbodySleepMode2D.StartAwake;
+    //        rb.AddForce(new Vector2(UnityEngine.Random.Range(-1000f,1000f),
+    //            UnityEngine.Random.Range(-1000f, 1000f)));
+    //        Destroy(targetTemp.ItemsInTarget[i], 3f);
+    //    }
+    //}
 
     private IEnumerator ChangeStage()
     {
@@ -195,12 +194,14 @@ public class GameManager : MonoBehaviour
         yield return null;
         CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
         yield return null;
+        UIManager.Instance.HideNameStage();
+        yield return null;
         var go = Instantiate(stagesData[nextStage -1].prefabDestroyedTarget);
         yield return new WaitForSeconds(0.5f);
 
         if (stageType == StageData.StageType.boss && !KnifeKeeper.Instance.openedKnivesID.Contains(_newOpenedKnife.ID))
         {
-            UIManager.S.OpenNewKnife(_newOpenedKnife);
+            UIManager.Instance.OpenNewKnife(_newOpenedKnife);
             yield return null;
             stageType = StageData.StageType.stage;
             yield return new WaitForSeconds(2.5f);
@@ -209,11 +210,10 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         Destroy(go);
         yield return new WaitForSeconds(0.1f);
-        //yield return null;
 
         if (nextStage < stagesData.Length)
         {
-            CreateStage(stagesData[nextStage]);
+            CreateStage(queueStages.Dequeue()); ;
         }
         else 
         {

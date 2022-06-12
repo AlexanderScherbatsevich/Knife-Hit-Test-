@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stage_3
   m_EditorClassIdentifier: 
   type: 1
-  stageName: Water Melon
+  stageName: Watermelon
   targetData: {fileID: 11400000, guid: 220de759813e5494cb3ad011377b1e93, type: 2}
   prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
   freeKnivesCount: 7

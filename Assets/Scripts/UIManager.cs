@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public static int HighScore = 0;
     public static int MaxStage = 0;
     public static string LastStage = "Stage 1";
-    public static UIManager S;
+    public static UIManager Instance;
 
     public GameObject newKnife;
     public StageData[] stageData;
@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        S = this;
+        Instance = this;
 
         Time.timeScale = 1;
     }
@@ -54,8 +54,6 @@ public class UIManager : MonoBehaviour
             GameManager.GameWin += CreateNextStage;
             GameManager.GameWin += CheckHighscore;
             GameManager.GameWin += CheckMaxStage;
-            GameManager.GameWin += UntieKnifeUI;
-            GameManager.GameLost += UntieKnifeUI;
             GameManager.GameLost += CheckHighscore;
             GameManager.GameLost += DelayToGameOver;
         }
@@ -110,7 +108,6 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
-
     public void CheckCollider(Collider2D col)
     {
         var go = col.gameObject;
@@ -124,14 +121,12 @@ public class UIManager : MonoBehaviour
         }
         else if (tag == "Apple")
         {
-            //AppleCount = int.Parse(appleCountText.text);
             AppleCount++;
             appleCountText.text = AppleCount.ToString();
             PlayerPrefs.SetInt("ApplesCount", AppleCount);
         }
         else if(tag == "Knife")
         {           
-            //CheckHighscore(int.Parse(scoreCountText.text));
             CheckMaxStage();
             PlayerPrefs.SetString("LastStage", stageName.text);
         }
@@ -140,7 +135,6 @@ public class UIManager : MonoBehaviour
     public void DelayToGameOver()
     {
         StartCoroutine(DelayGameOver());
-        //SceneManager.LoadScene(2);
     }
 
     private IEnumerator DelayGameOver()
@@ -153,15 +147,21 @@ public class UIManager : MonoBehaviour
     {       
         ShowKnivesUI(stage.freeKnivesCount );
         knivesCount = stage.freeKnivesCount;
-        for (int i = 0; i < stage.freeKnivesCount; i++)
-        {
-            knivesUI[i].GetComponent<Image>().color = Color.white;
-        }
-        GameManager.OnTouched += RemoveKnife;
-        stageName.text = stage.stageName;
+        ShowNameStage(stage);
         nextStage++;
     }
 
+    public void ShowNameStage(StageData stage)
+    {
+        stageName.text = stage.stageName;
+        LeanTween.scale(stageName.gameObject, new Vector3(1f, 1f, 1f),
+                0.3f).setEase(LeanTweenType.easeOutBack);
+    }
+    public void HideNameStage()
+    {
+        LeanTween.scale(stageName.gameObject, new Vector3(0f, 0f, 0f),
+        0.3f);
+    }
     public void ShowKnivesUI(int count)
     {
         foreach (var knifeUI in knivesUI)
@@ -171,6 +171,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             knivesUI[i].SetActive(true);
+            knivesUI[i].GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -178,11 +179,6 @@ public class UIManager : MonoBehaviour
     {
         knivesUI[knivesCount - 1].GetComponent<Image>().color = Color.black;
         knivesCount--;
-    }
-
-    private void UntieKnifeUI()
-    {
-        GameManager.OnTouched -= RemoveKnife;
     }
 
     private void CreateNextStage()
