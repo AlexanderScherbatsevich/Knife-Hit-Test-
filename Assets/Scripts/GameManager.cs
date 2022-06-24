@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using EZCameraShake;
 
 public class GameManager : MonoBehaviour
@@ -16,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject prefabDestroyedApple;
     public GameObject prefabSparks;
     public GameObject prefabKnifeKeeper;
-    
+
     public StageData[] stagesData;
 
     public float delayBetweenThrows;
@@ -35,7 +34,6 @@ public class GameManager : MonoBehaviour
     private KnifeData _newOpenedKnife;     
     private Queue<StageData> queueStages;
     private Queue<GameObject> queueKnives;
-    private StageData stage;
     private IEnumerator destoyTarget;
 
     void Start()
@@ -93,7 +91,6 @@ public class GameManager : MonoBehaviour
             case "Target":
                 Vibration.VibratePop();
                 ShakeAndFlash();
-
                 if (queueKnives.Count > 0) 
                     GetKnife();
                 else
@@ -103,20 +100,22 @@ public class GameManager : MonoBehaviour
                     destoyTarget = ChangeStage();
                     StartCoroutine(destoyTarget);
                 }
-
-                var sGO = Instantiate(prefabSparks);
-                sGO.GetComponent<ParticleSystem>().Play();
-                Destroy(sGO, 1f);
+                if(stageType != StageData.StageType.boss)
+                {
+                    var tGO = Instantiate(prefabSparks);
+                    Destroy(tGO, 1f);
+                }                                   
                 break;
             case "Apple":
                 var destroyedApple = Instantiate(prefabDestroyedApple,
                     go.transform.position, go.transform.rotation);
                 Destroy(go);
-                //target.GetComponent<Target>().ItemsInTarget.Remove(go);
                 Destroy(destroyedApple, 3f);
                 break;
             case "Knife":
                 Vibration.VibratePeek();
+                var sGO = Instantiate(prefabSparks);
+                Destroy(sGO, 1f);
                 break;
             default:
                 break;
@@ -138,14 +137,15 @@ public class GameManager : MonoBehaviour
 
     private void CreateStage(StageData stage)
     {
-
+        UIManager.Instance.CreateStageUI(stage);
         target = Instantiate(prefabTarget);
         target.GetComponent<Target>().targetData = stage.targetData;
 
         _newOpenedKnife = stage.openedKnife;
         knivesCount = stage.freeKnivesCount;
         stageType = stage.type;
-       
+        AudioManager.Instance.stageType = this.stageType;
+
         nextStage++;
 
         queueKnives = new Queue<GameObject>();
@@ -190,6 +190,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.03f);
         Destroy(target);
         yield return null;
+        if (stageType == StageData.StageType.boss)
+            AudioManager.Instance.destroyFruit.Play();
+        else
+            AudioManager.Instance.destroyLog.Play();
+        yield return null;
         Vibration.Vibrate();
         yield return null;
         CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
@@ -203,6 +208,8 @@ public class GameManager : MonoBehaviour
         {
             UIManager.Instance.OpenNewKnife(_newOpenedKnife);
             yield return null;
+            AudioManager.Instance.openNewKnife.Play();
+            yield return null;
             stageType = StageData.StageType.stage;
             yield return new WaitForSeconds(2.5f);
         }
@@ -211,15 +218,18 @@ public class GameManager : MonoBehaviour
         Destroy(go);
         yield return new WaitForSeconds(0.1f);
 
-        if (nextStage < stagesData.Length)
+        if (queueStages.Count != 0)
         {
             CreateStage(queueStages.Dequeue()); ;
         }
         else 
         {
+            UIManager.Instance.EndGame();
+            yield return null;
+            AudioManager.Instance.victory.Play();
+            yield return null;
             GameWin?.Invoke();
             yield return null;
-            SceneManager.LoadScene(0);
         }          
         yield return null;
         GameWin?.Invoke();

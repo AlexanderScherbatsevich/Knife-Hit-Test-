@@ -30,7 +30,7 @@ public class Knife : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D col)
     {
         GameObject go = col.gameObject;
-        
+        Debug.Log(col.name);
         GameManager.OnCollision?.Invoke(col);
         if (go.tag == "Target")
         {

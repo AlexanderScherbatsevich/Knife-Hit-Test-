@@ -24,6 +24,7 @@ public class Target : MonoBehaviour
 
     private void Start()
     {
+        
         ItemsInTarget = new List<GameObject>();
         sRend = GetComponent<SpriteRenderer>();
         sRend.sprite = targetData.sprite;       

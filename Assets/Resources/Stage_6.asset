@@ -15,6 +15,6 @@ MonoBehaviour:
   type: 1
   stageName: Orange
   targetData: {fileID: 11400000, guid: 334e1cc12184eb147b730d47904ec917, type: 2}
-  prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
-  freeKnivesCount: 8
+  prefabDestroyedTarget: {fileID: 6255203494337530119, guid: e16e240bfdcdc5040b7db1fa4e9fd1aa, type: 3}
+  freeKnivesCount: 9
   openedKnife: {fileID: 11400000, guid: 3ef94078f35b1d043b63c4ef18daeb10, type: 2}

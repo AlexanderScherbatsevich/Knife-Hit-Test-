@@ -9,6 +9,8 @@ TagManager:
   - New Knife
   - Apple
   - Wall
+  - Stage
+  - Boss
   layers:
   - Default
   - TransparentFX

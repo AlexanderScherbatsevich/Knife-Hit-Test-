@@ -16,5 +16,5 @@ MonoBehaviour:
   stageName: Stage 5
   targetData: {fileID: 11400000, guid: 57571b58225b5d847b7ef38648b214cb, type: 2}
   prefabDestroyedTarget: {fileID: 1797261859566750200, guid: a18ad4a89c4d65747a33b0a220af8c3a, type: 3}
-  freeKnivesCount: 7
+  freeKnivesCount: 8
   openedKnife: {fileID: 0}

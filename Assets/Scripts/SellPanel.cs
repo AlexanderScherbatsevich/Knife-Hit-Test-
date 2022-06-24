@@ -17,7 +17,8 @@ public class SellPanel : MonoBehaviour
     private int _cost;
 
     public void Buy()
-    {       
+    {
+        AudioManager.Instance.click.Play();
         int appleCount = UIManager.AppleCount;        
         if (appleCount >= _cost )
         {
@@ -38,6 +39,7 @@ public class SellPanel : MonoBehaviour
     {
         if (toggle)
         {
+            AudioManager.Instance.click.Play();
             ChangeState(KnifeData.State.isSelected);
             PlayerPrefs.SetInt("SelectedKnife", this.ID);
         }

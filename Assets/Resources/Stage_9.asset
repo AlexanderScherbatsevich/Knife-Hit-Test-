@@ -16,5 +16,5 @@ MonoBehaviour:
   stageName: Kiwi
   targetData: {fileID: 11400000, guid: 4550df8f96693fd4090bd2fd64a039e1, type: 2}
   prefabDestroyedTarget: {fileID: 6255203494337530119, guid: 8a108ab77a7624c4eab7aa04ccd731f3, type: 3}
-  freeKnivesCount: 9
+  freeKnivesCount: 10
   openedKnife: {fileID: 11400000, guid: d894e30c3dbeb764ab71d2016917134a, type: 2}

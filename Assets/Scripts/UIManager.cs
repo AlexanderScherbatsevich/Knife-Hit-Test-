@@ -12,46 +12,40 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject newKnife;
-    public StageData[] stageData;
     public Text appleCountText;
 
     [Header("GamePanel")]
-    public Transform gamePanel;
     public Text scoreCountText;
     public Text stageName;
+    public Text youWinText;
     public GameObject[] knivesUI;
 
     [Header("MenuPanel")]
+    public Toggle sound;
+    public Toggle vibration;
     public Transform shopPanel;
-    public Transform menuPanel;
     public Text highScoreText;
     public Text maxStage;
 
-    [Header("GameOverPanel")]
-    public Transform gameOverPanel;
-
+    [Header("GameOverPanel")]  
+    public Text stageNameGO;
     [HideInInspector] public int nextStage = 0;
 
-    public Text stageNameGO;
     private int knivesCount;
-    private int score;
+    private int score = 0 ;
     private bool isShopOpen = false;
 
     private void Awake()
     {
         Instance = this;
-
-        Time.timeScale = 1;
     }
     void Start()
     {      
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             scoreCountText.text = "0";
-            CreateStageUI(stageData[0]);
-            GameManager.OnCollision += CheckCollider;
 
-            GameManager.GameWin += CreateNextStage;
+            GameManager.OnCollision += OnHit;
             GameManager.GameWin += CheckHighscore;
             GameManager.GameWin += CheckMaxStage;
             GameManager.GameLost += CheckHighscore;
@@ -70,14 +64,17 @@ public class UIManager : MonoBehaviour
         {
             SetHighScoreText();
             SetMaxStageText();
+            Instance.sound.isOn = SaveObject.Save.isSoundOff;
+            Instance.vibration.isOn = SaveObject.Save.isVibrationOff;
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 2) SetLastStageText();
+        if (SceneManager.GetActiveScene().buildIndex == 2) 
+            SetLastStageText();
 
 
     }
 
-    #region Buttons
+    #region Buttons and toggles
 
     public void NewGame()
     {
@@ -106,26 +103,28 @@ public class UIManager : MonoBehaviour
         shopPanel.gameObject.SetActive(isShopOpen);
     }
 
+    public void ToggleVibration(bool isTurnOn)
+    {
+        SaveObject.Save.isVibrationOff = isTurnOn;
+        AudioManager.Instance.click.Play();
+    }
+
     #endregion
 
-    public void CheckCollider(Collider2D col)
+    public void OnHit(Collider2D col)
     {
-        var go = col.gameObject;
-        string tag = col.gameObject.tag;
-        score = int.Parse(scoreCountText.text);
-
-        if (tag == "Target")
+        if (col.CompareTag("Target"))
         {
             score++;
             scoreCountText.text = score.ToString();
         }
-        else if (tag == "Apple")
+        else if (col.CompareTag("Apple"))
         {
             AppleCount++;
             appleCountText.text = AppleCount.ToString();
             PlayerPrefs.SetInt("ApplesCount", AppleCount);
         }
-        else if(tag == "Knife")
+        else if(col.CompareTag("Knife"))
         {           
             CheckMaxStage();
             PlayerPrefs.SetString("LastStage", stageName.text);
@@ -143,7 +142,7 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(sceneIndex);
     }
 
-    private void CreateStageUI(StageData stage)
+    public void CreateStageUI(StageData stage)
     {       
         ShowKnivesUI(stage.freeKnivesCount );
         knivesCount = stage.freeKnivesCount;
@@ -181,13 +180,8 @@ public class UIManager : MonoBehaviour
         knivesCount--;
     }
 
-    private void CreateNextStage()
-    {
-        if (nextStage < stageData.Length)
-            CreateStageUI(stageData[nextStage]);
-        else return;
-    }
 
+    #region PlayerPrefs
     private void CheckHighscore()
     {
         if (score > HighScore)
@@ -237,7 +231,7 @@ public class UIManager : MonoBehaviour
         PlayerPrefs.SetString("LastStage", LastStage);
         stageNameGO.text = LastStage.ToString();
     }
-
+    #endregion
 
 
     public void SellKnife(int cost)
@@ -280,10 +274,17 @@ public class UIManager : MonoBehaviour
         Destroy(openedKnife, 2.5f);
     }
 
+    public void EndGame()
+    {
+        youWinText.gameObject.SetActive(true);
+        LeanTween.scale(youWinText.gameObject, new Vector3(1f, 1f, 1f),
+            1f).setEase(LeanTweenType.easeOutBack);
+        StartCoroutine(LoadScene(0, 2.5f));
+    }
+
     private void OnDisable()
     {
-        GameManager.OnCollision -= CheckCollider;
-        GameManager.GameWin -= CreateNextStage;
+        GameManager.OnCollision -= OnHit;
         GameManager.GameLost -= DelayToGameOver;
         GameManager.GameWin -= CheckHighscore;
         GameManager.GameLost -= CheckHighscore;

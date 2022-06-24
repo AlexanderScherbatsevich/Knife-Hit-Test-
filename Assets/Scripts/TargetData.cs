@@ -17,4 +17,5 @@ public class TargetData : ScriptableObject
     public int chanceForKnife;
     public GameObject applePrefab;
     public GameObject knifePrefab;
+    
 }
