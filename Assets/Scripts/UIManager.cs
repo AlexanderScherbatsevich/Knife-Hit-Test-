@@ -40,8 +40,29 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
     void Start()
-    {      
-        if(SceneManager.GetActiveScene().buildIndex == 1)
+    {
+        //if (PlayerPrefs.HasKey("ApplesCount"))
+        //{
+        //    AppleCount = PlayerPrefs.GetInt("ApplesCount");
+        //}
+        //PlayerPrefs.SetInt("ApplesCount", AppleCount);
+        AppleCount = Save.Instance.appleCount;
+        appleCountText.text = AppleCount.ToString();
+
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            //SetHighScoreText();
+            HighScore = Save.Instance.highScore;
+            highScoreText.text = HighScore.ToString();
+
+            SetMaxStageText();
+
+
+            Instance.sound.isOn = Save.Instance.isSoundOff;
+            Instance.vibration.isOn = Save.Instance.isVibrationOff;
+        }
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             scoreCountText.text = "0";
 
@@ -52,26 +73,9 @@ public class UIManager : MonoBehaviour
             GameManager.GameLost += DelayToGameOver;
         }
 
-        if (PlayerPrefs.HasKey("ApplesCount"))
-        {
-            AppleCount = PlayerPrefs.GetInt("ApplesCount");
-        }
-        PlayerPrefs.SetInt("ApplesCount", AppleCount);
-        appleCountText.text = AppleCount.ToString();
-        
-
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            SetHighScoreText();
-            SetMaxStageText();
-            Instance.sound.isOn = SaveObject.Save.isSoundOff;
-            Instance.vibration.isOn = SaveObject.Save.isVibrationOff;
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex == 2) 
-            SetLastStageText();
-
-
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+            stageNameGO.text = Save.Instance.lastStage;
+            //SetLastStageText();
     }
 
     #region Buttons and toggles
@@ -105,8 +109,7 @@ public class UIManager : MonoBehaviour
 
     public void ToggleVibration(bool isTurnOn)
     {
-        SaveObject.Save.isVibrationOff = isTurnOn;
-        AudioManager.Instance.click.Play();
+        Save.Instance.isVibrationOff = isTurnOn;
     }
 
     #endregion
@@ -122,12 +125,14 @@ public class UIManager : MonoBehaviour
         {
             AppleCount++;
             appleCountText.text = AppleCount.ToString();
-            PlayerPrefs.SetInt("ApplesCount", AppleCount);
+            //PlayerPrefs.SetInt("ApplesCount", AppleCount);
+            Save.Instance.appleCount = AppleCount;
         }
         else if(col.CompareTag("Knife"))
         {           
             CheckMaxStage();
-            PlayerPrefs.SetString("LastStage", stageName.text);
+            //PlayerPrefs.SetString("LastStage", stageName.text);
+            Save.Instance.lastStage = stageName.text;
         }
     }
 
@@ -187,7 +192,8 @@ public class UIManager : MonoBehaviour
         if (score > HighScore)
         {
             HighScore = score;
-            PlayerPrefs.SetInt("Highscore", HighScore);
+            //PlayerPrefs.SetInt("Highscore", HighScore);
+            Save.Instance.highScore = HighScore;
         }        
     }
 
@@ -229,7 +235,7 @@ public class UIManager : MonoBehaviour
             LastStage = PlayerPrefs.GetString("LastStage");
         }
         PlayerPrefs.SetString("LastStage", LastStage);
-        stageNameGO.text = LastStage.ToString();
+        stageNameGO.text = LastStage;
     }
     #endregion
 
@@ -238,15 +244,16 @@ public class UIManager : MonoBehaviour
     {
         AppleCount -= cost;
         appleCountText.text = AppleCount.ToString();
-        PlayerPrefs.SetInt("ApplesCount", AppleCount);
+       // PlayerPrefs.SetInt("ApplesCount", AppleCount);
+        Save.Instance.appleCount = AppleCount;
     }
 
     public void ResetShopState()
     {
-        PlayerPrefs.DeleteKey("OpenedKnives");
-        PlayerPrefs.DeleteKey("SelectedKnife");
         KnifeKeeper.Instance.openedKnivesID.Clear();
         KnifeKeeper.Instance.SelectKnifeData(0);
+        Save.Instance.selectedKnifeID = 0;
+        Save.Instance.openedKnivesID.Clear();
         KnifeKeeper.Instance.AddOpenedKnife(0);
     }
 
@@ -259,17 +266,17 @@ public class UIManager : MonoBehaviour
         GameObject knifeSkin = openedKnife.GetComponentInChildren<Image>().gameObject;
         GameObject text = openedKnife.GetComponentInChildren<Text>().gameObject;
 
-        LeanTween.scale(knifeSkin, new Vector3(1.5f, 1.5f, 1.5f),
+        LeanTween.scale(knifeSkin, new Vector3(1.2f, 1.2f, 1.2f),
                 2f).setEase(LeanTweenType.easeOutExpo);
         LeanTween.scale(text, new Vector3(2f, 2f, 1.5f), 
             2f).setEase(LeanTweenType.easeOutExpo);
 
 
         LeanTween.scale(knifeSkin, new Vector3(0.01f, 0.01f, 1f),
-                0.5f).setDelay(2f).setEase(LeanTweenType.easeOutExpo).setDestroyOnComplete(true);
+                0.5f).setDelay(2f).setEase(LeanTweenType.easeOutExpo);
 
         LeanTween.scale(text, new Vector3(0.01f, 0.01f, 1f),
-                0.5f).setDelay(2f).setEase(LeanTweenType.easeOutExpo).setDestroyOnComplete(true);
+                0.5f).setDelay(2f).setEase(LeanTweenType.easeOutExpo);
 
         Destroy(openedKnife, 2.5f);
     }

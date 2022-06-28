@@ -26,14 +26,14 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         GameManager.OnCollision += OnHit;
 
-        isSoundOff = SaveObject.Save.isSoundOff;
+        isSoundOff = Save.Instance.isSoundOff;
         ToggleSound(isSoundOff);
     }
 
     public void ToggleSound(bool isTurnOn)
     {
         isSoundOff = isTurnOn;
-        SaveObject.Save.isSoundOff = isTurnOn;
+        Save.Instance.isSoundOff = isTurnOn;
 
         if (!isSoundOff) 
             audioMixer.audioMixer.SetFloat("SoundVolume", 0);

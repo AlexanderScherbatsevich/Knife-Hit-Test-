@@ -8,9 +8,8 @@ public class StageData : ScriptableObject
     public string stageName;
     public TargetData targetData;
     public GameObject prefabDestroyedTarget;
-    [Range(1, 10)]
-    public int freeKnivesCount = 0;
     public KnifeData openedKnife;
+    [Range(1, 10)] public int freeKnivesCount = 0;
 
     public enum StageType
     {

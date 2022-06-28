@@ -643,7 +643,7 @@ MonoBehaviour:
   num: {fileID: 524293817898754082}
   cost: {fileID: 524293819374465441}
   ID: 0
-  notEnoughApplesText: {fileID: 6419101386904436376, guid: c381bf9237108914a9b523635659b6cc, type: 3}
+  notEnoughApplesText: {fileID: 7052840752998634143, guid: aca0dac1357ac2f4ea87665cb07c4228, type: 3}
 --- !u!1 &524293819202619718
 GameObject:
   m_ObjectHideFlags: 0

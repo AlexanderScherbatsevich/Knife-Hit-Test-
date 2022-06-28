@@ -27,14 +27,15 @@ public class SnapScrolling : MonoBehaviour
     {
         Instance = this;
 
-        Debug.Log("i'm scrolling");
-        int selectedKnifeID;
-        if (PlayerPrefs.HasKey("SelectedKnife"))
-        {
-            selectedKnifeID = PlayerPrefs.GetInt("SelectedKnife");
-        }
-        else selectedKnifeID = 0;
-        _openedKnives = KnifeKeeper.Instance.openedKnivesID;
+        int selectedKnifeID = Save.Instance.selectedKnifeID;
+        _openedKnives = Save.Instance.openedKnivesID;
+        //if (PlayerPrefs.HasKey("SelectedKnife"))
+        //{
+        //    selectedKnifeID = PlayerPrefs.GetInt("SelectedKnife");
+        //}
+        //else selectedKnifeID = 0;
+        //_openedKnives = KnifeKeeper.Instance.openedKnivesID;
+
         _knifeKeeper = prefabKnifeKeeper.GetComponent<KnifeKeeper>();
         countSPs = _knifeKeeper.knivesData.Length;
         contentRect = GetComponent<RectTransform>();
@@ -83,9 +84,7 @@ public class SnapScrolling : MonoBehaviour
         //contentVector.x = Mathf.SmoothStep(contentRect.anchoredPosition.x, panelsPos[selectedID].x,
         //snapSpeed * Time.fixedDeltaTime);
         //contentRect.anchoredPosition = contentVector;
-        Move(contentRect.anchoredPosition.x, panelsPos[selectedPanelID].x);
-
-        
+        Move(contentRect.anchoredPosition.x, panelsPos[selectedPanelID].x);        
     }
 
     public void Scrolling(bool scroll)

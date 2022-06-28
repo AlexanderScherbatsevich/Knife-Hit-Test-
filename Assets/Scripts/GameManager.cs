@@ -7,6 +7,7 @@ using EZCameraShake;
 public class GameManager : MonoBehaviour
 {
     [HideInInspector] public static bool isGameOver = false;
+    
 
     public static GameManager Instance;
 
@@ -35,12 +36,18 @@ public class GameManager : MonoBehaviour
     private Queue<StageData> queueStages;
     private Queue<GameObject> queueKnives;
     private IEnumerator destoyTarget;
+    private bool isVibrationOff;
 
     void Start()
     {
 
-        _knifeData = KnifeKeeper.Instance.selectedKnife;
-        Vibration.Init();
+        _knifeData = KnifeKeeper.Instance.SelectKnifeData(Save.Instance.selectedKnifeID);
+
+        isVibrationOff = Save.Instance.isVibrationOff;
+        Debug.Log($"isVibrationOff: {isVibrationOff}");
+        if(!isVibrationOff)
+            Vibration.Init();
+
         OnCollision += CheckCollider;
         GameWin += StopToDestroyTarget;       
 
@@ -89,7 +96,8 @@ public class GameManager : MonoBehaviour
         switch (tag)
         {
             case "Target":
-                Vibration.VibratePop();
+                if (!isVibrationOff)
+                    Vibration.VibratePop();
                 ShakeAndFlash();
                 if (queueKnives.Count > 0) 
                     GetKnife();
@@ -113,7 +121,8 @@ public class GameManager : MonoBehaviour
                 Destroy(destroyedApple, 3f);
                 break;
             case "Knife":
-                Vibration.VibratePeek();
+                if (!isVibrationOff)
+                    Vibration.VibratePeek();
                 var sGO = Instantiate(prefabSparks);
                 Destroy(sGO, 1f);
                 break;
@@ -195,7 +204,8 @@ public class GameManager : MonoBehaviour
         else
             AudioManager.Instance.destroyLog.Play();
         yield return null;
-        Vibration.Vibrate();
+        if (!isVibrationOff)
+            Vibration.Vibrate();
         yield return null;
         CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
         yield return null;

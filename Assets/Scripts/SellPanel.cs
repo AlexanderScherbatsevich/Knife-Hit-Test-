@@ -12,7 +12,7 @@ public class SellPanel : MonoBehaviour
     public Text num;
     public Text cost;
     public int ID;
-    public Text notEnoughApplesText;
+    public GameObject notEnoughApplesText;
 
     private int _cost;
 
@@ -29,9 +29,9 @@ public class SellPanel : MonoBehaviour
         else
         {
             var notEnoughText = Instantiate(notEnoughApplesText, transform, false);
-            LeanTween.moveLocal(notEnoughText.gameObject, new Vector3(0, 530f, 0f),
-                2f).setDelay(0.1f).setEase(LeanTweenType.easeOutSine);
-            Destroy(notEnoughText.gameObject, 2f);
+            LeanTween.moveLocal(notEnoughText, new Vector3(0, 380f, 0f),
+                1.5f).setDelay(0.1f).setEase(LeanTweenType.easeOutSine);
+            Destroy(notEnoughText, 1.5f);
         }
     }
 
@@ -39,9 +39,9 @@ public class SellPanel : MonoBehaviour
     {
         if (toggle)
         {
-            AudioManager.Instance.click.Play();
+            //AudioManager.Instance.click.Play();
             ChangeState(KnifeData.State.isSelected);
-            PlayerPrefs.SetInt("SelectedKnife", this.ID);
+            Save.Instance.selectedKnifeID = this.ID;
         }
     }
 

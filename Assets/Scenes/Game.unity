@@ -775,6 +775,7 @@ GameObject:
   - component: {fileID: 1234059285}
   - component: {fileID: 1234059288}
   - component: {fileID: 1234059289}
+  - component: {fileID: 1234059290}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -895,6 +896,18 @@ MonoBehaviour:
   DefaultRotInfluence: {x: 1, y: 1, z: -10}
   RestPositionOffset: {x: 0, y: 0, z: -10}
   RestRotationOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &1234059290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234059284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2acf775b085d94d898560053639589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1347654295
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1207,6 +1220,8 @@ MonoBehaviour:
   - {fileID: 5873070010341511206}
   - {fileID: 5873070010750230254}
   - {fileID: 5873070010172872153}
+  sound: {fileID: 0}
+  vibration: {fileID: 0}
   shopPanel: {fileID: 0}
   highScoreText: {fileID: 0}
   maxStage: {fileID: 0}

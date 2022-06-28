@@ -12,47 +12,30 @@ public class KnifeKeeper : MonoBehaviour
     [HideInInspector] public List<int> openedKnivesID;
 
     private int _selectedKnifeID = 0;
-    private SavedList _savedList = new SavedList();
 
     private void Awake()
     {
         Instance = this;
 
-        if (PlayerPrefs.HasKey("OpenedKnives"))
-        {
-            _savedList = JsonUtility.FromJson<SavedList>(PlayerPrefs.GetString("OpenedKnives"));
-            openedKnivesID = _savedList.savedOpenedKnivesID;
-        }
-        else
-            AddOpenedKnife(0);
+        openedKnivesID = Save.Instance.openedKnivesID;
 
-        if (PlayerPrefs.HasKey("SelectedKnife"))
-            _selectedKnifeID = PlayerPrefs.GetInt("SelectedKnife");
-        else
-            _selectedKnifeID = 0;
-
+        _selectedKnifeID = Save.Instance.selectedKnifeID;
         SelectKnifeData(_selectedKnifeID);
     }
 
     public void AddOpenedKnife(int ID)
     {
         openedKnivesID.Add(ID);
-        _savedList.savedOpenedKnivesID = openedKnivesID;
-        PlayerPrefs.SetString("OpenedKnives", JsonUtility.ToJson(_savedList));
+        Save.Instance.openedKnivesID = openedKnivesID;
     }
 
-    public void SelectKnifeData(int ID)
+    public KnifeData SelectKnifeData(int ID)
     {
         for (int i = 0; i < knivesData.Length; i++)
         {
             if (ID == knivesData[i].ID)
                 selectedKnife = knivesData[i];           
         }
+        return selectedKnife;
     }
-}
-
-[System.Serializable]
-public class SavedList
-{
-    public List<int> savedOpenedKnivesID;
 }
