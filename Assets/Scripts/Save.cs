@@ -9,7 +9,6 @@ public class Save : MonoBehaviour
     private void Awake()
     {
         Instance = LoadObject();
-        Debug.Log($"isSoundOff: {Instance.isSoundOff}");
     }
 
     private void OnDisable()
@@ -40,10 +39,10 @@ public class SaveData
 {
     public int highScore;
     public int appleCount;
-    public string maxStage = "Stage 1";
+    public int maxStage;
     public string lastStage = "Stage 1";
     public bool isSoundOff;
     public bool isVibrationOff;
-    public int selectedKnifeID = 0;
+    public int selectedKnifeID;
     public List<int> openedKnivesID = new List<int>() {0};
 }

@@ -29,12 +29,6 @@ public class SnapScrolling : MonoBehaviour
 
         int selectedKnifeID = Save.Instance.selectedKnifeID;
         _openedKnives = Save.Instance.openedKnivesID;
-        //if (PlayerPrefs.HasKey("SelectedKnife"))
-        //{
-        //    selectedKnifeID = PlayerPrefs.GetInt("SelectedKnife");
-        //}
-        //else selectedKnifeID = 0;
-        //_openedKnives = KnifeKeeper.Instance.openedKnivesID;
 
         _knifeKeeper = prefabKnifeKeeper.GetComponent<KnifeKeeper>();
         countSPs = _knifeKeeper.knivesData.Length;

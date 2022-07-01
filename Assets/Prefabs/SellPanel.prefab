@@ -538,6 +538,7 @@ GameObject:
   - component: {fileID: 524293819140287459}
   - component: {fileID: 524293819140287456}
   - component: {fileID: 710750857967264660}
+  - component: {fileID: -3323155447410047678}
   m_Layer: 5
   m_Name: SellPanel
   m_TagString: Untagged
@@ -643,7 +644,18 @@ MonoBehaviour:
   num: {fileID: 524293817898754082}
   cost: {fileID: 524293819374465441}
   ID: 0
-  notEnoughApplesText: {fileID: 7052840752998634143, guid: aca0dac1357ac2f4ea87665cb07c4228, type: 3}
+  notEnoughApplesText: {fileID: 1608565744380213566, guid: c381bf9237108914a9b523635659b6cc, type: 3}
+--- !u!210 &-3323155447410047678
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524293819140287470}
+  m_Enabled: 1
+  m_SortingLayerID: 1322480905
+  m_SortingLayer: 1
+  m_SortingOrder: 100
 --- !u!1 &524293819202619718
 GameObject:
   m_ObjectHideFlags: 0

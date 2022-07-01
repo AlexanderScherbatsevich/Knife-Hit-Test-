@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eadac26e8194b9489c40a5671b4bb31, type: 3}
   m_Name: Target_3
   m_EditorClassIdentifier: 
-  sprite: {fileID: 508044122039945201, guid: 19956373759379f49b43dbdd4beef5d5, type: 3}
-  minSpeedRot: -0.3
-  maxSpeedRot: 0.3
-  timeForAccelerate: 3
-  isRandomSpeed: 1
   chanceForApple: 25
-  chanceForKnife: 100
+  chanceForKnife: 70
+  sprite: {fileID: 508044122039945201, guid: 19956373759379f49b43dbdd4beef5d5, type: 3}
   applePrefab: {fileID: 2996028451148061936, guid: 65b112663eb8e3e44bb857166089350d, type: 3}
   knifePrefab: {fileID: 6846367172743345542, guid: 2af503bff4de56a4caaa9f5a013c5f4a, type: 3}
-  tag: Boss
+  isReversible: 1
+  isVariable: 1
+  withDelay: 0
+  speed: 220
+  timeForConstRot: 3
+  delay: 0.1

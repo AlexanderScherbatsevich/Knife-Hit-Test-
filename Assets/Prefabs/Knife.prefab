@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 445644565402247689}
   - component: {fileID: 5103249942565191825}
-  - component: {fileID: 4340848512198008128}
   - component: {fileID: 6359255302854345526}
+  - component: {fileID: 4978188600431422857}
   - component: {fileID: 7330662710439414197}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Knife
-  m_TagString: New Knife
+  m_TagString: Knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,22 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &4340848512198008128
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846367172743345542}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0004034415, y: -0.0048297048}
-  m_Size: {x: 0.20696618, y: 0.7940242}
-  m_Direction: 0
 --- !u!50 &6359255302854345526
 Rigidbody2D:
   serializedVersion: 4
@@ -120,8 +104,34 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!61 &4978188600431422857
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846367172743345542}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0005033985, y: -0.0030420572}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.3, y: 0.84}
+    newSize: {x: 0.3, y: 0.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.21999131, y: 0.8035393}
+  m_EdgeRadius: 0
 --- !u!114 &7330662710439414197
 MonoBehaviour:
   m_ObjectHideFlags: 0

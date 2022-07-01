@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     public Toggle vibration;
     public Transform shopPanel;
     public Text highScoreText;
-    public Text maxStage;
+    public Text maxStageText;
 
     [Header("GameOverPanel")]  
     public Text stageNameGO;
@@ -41,22 +41,13 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
-        //if (PlayerPrefs.HasKey("ApplesCount"))
-        //{
-        //    AppleCount = PlayerPrefs.GetInt("ApplesCount");
-        //}
-        //PlayerPrefs.SetInt("ApplesCount", AppleCount);
         AppleCount = Save.Instance.appleCount;
         appleCountText.text = AppleCount.ToString();
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            //SetHighScoreText();
-            HighScore = Save.Instance.highScore;
-            highScoreText.text = HighScore.ToString();
-
-            SetMaxStageText();
-
+            highScoreText.text = Save.Instance.highScore.ToString();
+            maxStageText.text = Save.Instance.maxStage.ToString();
 
             Instance.sound.isOn = Save.Instance.isSoundOff;
             Instance.vibration.isOn = Save.Instance.isVibrationOff;
@@ -75,7 +66,6 @@ public class UIManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 2)
             stageNameGO.text = Save.Instance.lastStage;
-            //SetLastStageText();
     }
 
     #region Buttons and toggles
@@ -125,13 +115,11 @@ public class UIManager : MonoBehaviour
         {
             AppleCount++;
             appleCountText.text = AppleCount.ToString();
-            //PlayerPrefs.SetInt("ApplesCount", AppleCount);
             Save.Instance.appleCount = AppleCount;
         }
         else if(col.CompareTag("Knife"))
         {           
             CheckMaxStage();
-            //PlayerPrefs.SetString("LastStage", stageName.text);
             Save.Instance.lastStage = stageName.text;
         }
     }
@@ -161,11 +149,13 @@ public class UIManager : MonoBehaviour
         LeanTween.scale(stageName.gameObject, new Vector3(1f, 1f, 1f),
                 0.3f).setEase(LeanTweenType.easeOutBack);
     }
+
     public void HideNameStage()
     {
         LeanTween.scale(stageName.gameObject, new Vector3(0f, 0f, 0f),
         0.3f);
     }
+
     public void ShowKnivesUI(int count)
     {
         foreach (var knifeUI in knivesUI)
@@ -185,14 +175,11 @@ public class UIManager : MonoBehaviour
         knivesCount--;
     }
 
-
-    #region PlayerPrefs
     private void CheckHighscore()
     {
         if (score > HighScore)
         {
             HighScore = score;
-            //PlayerPrefs.SetInt("Highscore", HighScore);
             Save.Instance.highScore = HighScore;
         }        
     }
@@ -200,51 +187,18 @@ public class UIManager : MonoBehaviour
     public void CheckMaxStage()
     {
         int value = nextStage ;
-        MaxStage = PlayerPrefs.GetInt("MaxStage");
+        MaxStage = Save.Instance.maxStage;
         if (value >= MaxStage)
         {
             MaxStage = value;
-            PlayerPrefs.SetInt("MaxStage", MaxStage);
+            Save.Instance.maxStage = MaxStage;
         }
     }
-
-    private void SetHighScoreText()
-    {
-        if (PlayerPrefs.HasKey("Highscore"))
-        {
-            HighScore = PlayerPrefs.GetInt("Highscore");
-        }
-        PlayerPrefs.SetInt("Highscore", HighScore);
-        highScoreText.text = HighScore.ToString();
-    }
-
-    private void SetMaxStageText()
-    {
-        if (PlayerPrefs.HasKey("MaxStage"))
-        {
-            MaxStage = PlayerPrefs.GetInt("MaxStage");
-        }
-        PlayerPrefs.SetInt("MaxStage", MaxStage);
-        maxStage.text = MaxStage.ToString();
-    }
-
-    private void SetLastStageText()
-    {
-        if (PlayerPrefs.HasKey("LastStage"))
-        {
-            LastStage = PlayerPrefs.GetString("LastStage");
-        }
-        PlayerPrefs.SetString("LastStage", LastStage);
-        stageNameGO.text = LastStage;
-    }
-    #endregion
-
 
     public void SellKnife(int cost)
     {
         AppleCount -= cost;
         appleCountText.text = AppleCount.ToString();
-       // PlayerPrefs.SetInt("ApplesCount", AppleCount);
         Save.Instance.appleCount = AppleCount;
     }
 

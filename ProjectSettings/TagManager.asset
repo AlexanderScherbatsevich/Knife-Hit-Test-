@@ -15,7 +15,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Text
   - Water
   - UI
   - New Knife
@@ -47,4 +47,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1322480905
+    locked: 0
+  - name: Text
+    uniqueID: 1236316063
     locked: 0

@@ -120,6 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b63e6af2fa9ec468e5d05176ca6ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isReversible: 0
+  isChangeable: 0
+  speed: 250
+  timeForConstRot: 5
+  delayBetweenConstRot: 0
   targetData: {fileID: 0}
   spotTrans:
   - {fileID: 1811808711921803510}

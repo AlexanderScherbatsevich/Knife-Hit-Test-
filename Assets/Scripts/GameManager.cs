@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
         _knifeData = KnifeKeeper.Instance.SelectKnifeData(Save.Instance.selectedKnifeID);
 
         isVibrationOff = Save.Instance.isVibrationOff;
-        Debug.Log($"isVibrationOff: {isVibrationOff}");
         if(!isVibrationOff)
             Vibration.Init();
 
@@ -95,10 +94,7 @@ public class GameManager : MonoBehaviour
         string tag = collision.gameObject.tag;
         switch (tag)
         {
-            case "Target":
-                if (!isVibrationOff)
-                    Vibration.VibratePop();
-                ShakeAndFlash();
+            case "Target":               
                 if (queueKnives.Count > 0) 
                     GetKnife();
                 else
@@ -112,7 +108,9 @@ public class GameManager : MonoBehaviour
                 {
                     var tGO = Instantiate(prefabSparks);
                     Destroy(tGO, 1f);
-                }                                   
+                }
+                if (!isVibrationOff)
+                    Vibration.VibratePop();
                 break;
             case "Apple":
                 var destroyedApple = Instantiate(prefabDestroyedApple,
@@ -121,27 +119,14 @@ public class GameManager : MonoBehaviour
                 Destroy(destroyedApple, 3f);
                 break;
             case "Knife":
-                if (!isVibrationOff)
-                    Vibration.VibratePeek();
                 var sGO = Instantiate(prefabSparks);
                 Destroy(sGO, 1f);
+                if (!isVibrationOff)
+                    Vibration.VibratePeek();
                 break;
             default:
                 break;
         }
-    }
-
-    public void ShakeAndFlash()
-    {
-        LeanTween.moveLocal(target, new Vector3(0, 1.65f, 0f),
-                    0.05f).setEase(LeanTweenType.easeOutQuint);
-
-        LeanTween.moveLocal(target, new Vector3(0, 1.5f, 0f),
-                    0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);
-
-        Color col = target.GetComponent<SpriteRenderer>().color;
-        LeanTween.color(target, Color.white, 0.05f);
-        LeanTween.color(target, col, 0.05f).setDelay(0.1f);
     }
 
     private void CreateStage(StageData stage)
@@ -198,28 +183,24 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.03f);
         Destroy(target);
-        yield return null;
+
         if (stageType == StageData.StageType.boss)
             AudioManager.Instance.destroyFruit.Play();
         else
             AudioManager.Instance.destroyLog.Play();
-        yield return null;
+
         if (!isVibrationOff)
             Vibration.Vibrate();
-        yield return null;
-        CameraShaker.Instance.ShakeOnce(5f, 5f, 0.1f, 0.3f);
-        yield return null;
+
+        CameraShaker.Instance.ShakeOnce(5f, 5f, 0.3f, 0.1f);
         UIManager.Instance.HideNameStage();
-        yield return null;
         var go = Instantiate(stagesData[nextStage -1].prefabDestroyedTarget);
         yield return new WaitForSeconds(0.5f);
 
         if (stageType == StageData.StageType.boss && !KnifeKeeper.Instance.openedKnivesID.Contains(_newOpenedKnife.ID))
         {
             UIManager.Instance.OpenNewKnife(_newOpenedKnife);
-            yield return null;
             AudioManager.Instance.openNewKnife.Play();
-            yield return null;
             stageType = StageData.StageType.stage;
             yield return new WaitForSeconds(2.5f);
         }
@@ -235,13 +216,9 @@ public class GameManager : MonoBehaviour
         else 
         {
             UIManager.Instance.EndGame();
-            yield return null;
             AudioManager.Instance.victory.Play();
-            yield return null;
             GameWin?.Invoke();
-            yield return null;
         }          
-        yield return null;
         GameWin?.Invoke();
     }
 }

@@ -28,10 +28,11 @@ public class SellPanel : MonoBehaviour
         }
         else
         {
-            var notEnoughText = Instantiate(notEnoughApplesText, transform, false);
-            LeanTween.moveLocal(notEnoughText, new Vector3(0, 380f, 0f),
-                1.5f).setDelay(0.1f).setEase(LeanTweenType.easeOutSine);
-            Destroy(notEnoughText, 1.5f);
+            var notEnoughText = Instantiate(notEnoughApplesText, transform.parent, false);
+            LeanTween.moveLocal(notEnoughText, new Vector3(transform.localPosition.x, -150f, 0f), 0f);
+            LeanTween.moveLocal(notEnoughText, new Vector3(transform.localPosition.x, 550f, 0f),
+                2f).setDelay(0.1f).setEase(LeanTweenType.easeOutSine);
+            Destroy(notEnoughText, 2f);
         }
     }
 
@@ -44,7 +45,6 @@ public class SellPanel : MonoBehaviour
             Save.Instance.selectedKnifeID = this.ID;
         }
     }
-
 
     public void CreateSP(KnifeData knifeData)
     {
