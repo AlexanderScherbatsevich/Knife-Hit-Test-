@@ -1224,7 +1224,7 @@ MonoBehaviour:
   vibration: {fileID: 0}
   shopPanel: {fileID: 0}
   highScoreText: {fileID: 0}
-  maxStage: {fileID: 0}
+  maxStageText: {fileID: 0}
   stageNameGO: {fileID: 0}
   nextStage: 0
 --- !u!212 &3668403405092579980

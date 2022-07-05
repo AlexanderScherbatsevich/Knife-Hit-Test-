@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7044259591626461814}
   - component: {fileID: 2237138049348129225}
   - component: {fileID: 2237138049348129226}
+  - component: {fileID: 790890688366833066}
   m_Layer: 8
   m_Name: Target
   m_TagString: Target
@@ -121,10 +122,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isReversible: 0
-  isChangeable: 0
+  isVariable: 0
+  withDelay: 0
   speed: 250
   timeForConstRot: 5
-  delayBetweenConstRot: 0
+  delayBetweenconstRot: 0.1
   targetData: {fileID: 0}
   spotTrans:
   - {fileID: 1811808711921803510}
@@ -135,8 +137,23 @@ MonoBehaviour:
   - {fileID: 1811808713713433928}
   - {fileID: 1811808713026377264}
   - {fileID: 1811808713023147145}
-  ItemsInTarget: []
-  timeForChangeSpeed: 3
+--- !u!111 &790890688366833066
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237138049348129077}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 1f80d49081faea14ca22ef4f31e7929c, type: 2}
+  - {fileID: 0}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &4614157274159225541
 GameObject:
   m_ObjectHideFlags: 0

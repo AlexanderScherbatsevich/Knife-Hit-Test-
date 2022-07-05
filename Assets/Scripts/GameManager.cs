@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             if (Time.time - lastThrowTime < delayBetweenThrows) return;
             else
@@ -66,6 +66,15 @@ public class GameManager : MonoBehaviour
                 lastThrowTime = Time.time;
             }
         }
+        //if (Input.touchCount > 0)
+        //{
+        //    if (Time.time - lastThrowTime < delayBetweenThrows) return;
+        //    else
+        //    {
+        //        OnTouched?.Invoke();
+        //        lastThrowTime = Time.time;
+        //    }
+        //}
     }
 
     private Queue<GameObject> CreateKnives(int knivesCount)
@@ -192,7 +201,7 @@ public class GameManager : MonoBehaviour
         if (!isVibrationOff)
             Vibration.Vibrate();
 
-        CameraShaker.Instance.ShakeOnce(5f, 5f, 0.3f, 0.1f);
+        CameraShaker.Instance.ShakeOnce(5f, 7f, 0.3f, 0.1f);
         UIManager.Instance.HideNameStage();
         var go = Instantiate(stagesData[nextStage -1].prefabDestroyedTarget);
         yield return new WaitForSeconds(0.5f);

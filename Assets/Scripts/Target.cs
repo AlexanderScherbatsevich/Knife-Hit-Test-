@@ -14,16 +14,19 @@ public class Target : MonoBehaviour
     private float constSpeed;
     private float constDelay;
     private float constTime;
+    //private Rigidbody2D rb;
+    private SpriteRenderer sRend;
+    //float constPosY;
+    private Animation anim;
 
     [HideInInspector] public TargetData targetData;
     [SerializeField] private List<Transform> spotTrans;
     //[HideInInspector] public List<GameObject> ItemsInTarget;
-    private SpriteRenderer sRend;
     //private float minRotSpeed;
     //private float maxRotSpeed; 
     //private bool isRandomSpeed;    
-    //private float timeForAccelerate;
-    //private float timeForAccelerateStart;
+    //[SerializeField] private float timeForSmooth = 0.5f;
+    //private float timeForSmoothStart;
     //private float timeForChangeSpeed = 3f;
     //private float timeForChangeSpeedStart;
     //private float angle = 1000;
@@ -34,6 +37,9 @@ public class Target : MonoBehaviour
 
     private void Start()
     {
+        sRend = this.GetComponent<SpriteRenderer>();
+        anim = this.GetComponent<Animation>();
+
         timeForConstRotStart = Time.time;
 
         speed = targetData.speed;
@@ -49,24 +55,25 @@ public class Target : MonoBehaviour
         
         //ItemsInTarget = new List<GameObject>();
         sRend = GetComponent<SpriteRenderer>();
-        sRend.sprite = targetData.sprite; 
-        
+        sRend.sprite = targetData.sprite;
+
         //minRotSpeed = targetData.minSpeedRot;
         //maxRotSpeed = targetData.maxSpeedRot;
         //minSpeedT = minRotSpeed;
         //maxSpeedT = maxRotSpeed;
-
         //timeForAccelerate = targetData.timeForAccelerate;
         //isRandomSpeed = targetData.isRandomSpeed;
-
         //timeForAccelerateStart = Time.time;
+
+        GameManager.OnCollision += ShakeAndFlash;
 
         SetItem(targetData.chanceForKnife, targetData.knifePrefab);
         SetItem(targetData.chanceForApple, targetData.applePrefab);
 
-        LeanTween.scale(this.gameObject, new Vector3(1.5f, 1.5f, 1f),
-        0.3f).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.scale(this.gameObject, new Vector3(1.5f, 1.5f, 1.5f),
+        0.5f).setEase(LeanTweenType.easeOutCubic);
 
+        //constPosY = this.GetComponent<Transform>().position.y;
         //StartCoroutine(VariableRotate());
     }
 
@@ -80,7 +87,7 @@ public class Target : MonoBehaviour
         float u = (Time.time - timeForConstRotStart) / timeForConstRot;
         if (u >= 1)
         {
-            ChangeSpeed();
+            ChangeSpeed();          
         }
         this.transform.Rotate(0, 0, speed * Time.deltaTime);
     }
@@ -121,7 +128,7 @@ public class Target : MonoBehaviour
         ////maxRotSpeed = Random.Range(maxRotSpeed, maxRotSpeed / 2);
         //timeForAccelerate = Random.Range(0.1f, timeForAccelerate);
         //timeForChangeSpeedStart = Time.time;
-
+        
         if (isReversible)
         {
             speed *= -1;
@@ -134,11 +141,15 @@ public class Target : MonoBehaviour
             delayBetweenconstRot = Random.Range(constDelay / 1.5f, constDelay * 1.5f);
         }     
         if(withDelay)
-            StartCoroutine(Delay(delayBetweenconstRot));
+            StartCoroutine(SpeedDelay(delayBetweenconstRot));
 
         timeForConstRotStart = Time.time;
-
     }
+    //private float Smooth(float from, float to, float u)
+    //{
+    //    float res = (1 - u) * from + u * to;
+    //    return (res);
+    //}
 
     private void SetItem(int chance, GameObject prefab)
     {
@@ -172,7 +183,7 @@ public class Target : MonoBehaviour
     //    }
     //}
 
-    private IEnumerator Delay(float delay)
+    private IEnumerator SpeedDelay(float delay)
     {
         float tSpeed = speed;
         speed = 0;
@@ -180,38 +191,49 @@ public class Target : MonoBehaviour
         speed = tSpeed;
     }
 
-    private void ShakeAndFlash()
-    {
-        LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.65f, 0f),
-                    0.05f).setEase(LeanTweenType.easeOutQuint);
+    //private void ShakeAndFlash()
+    //{
+    //    LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.65f, 0f),
+    //                0.05f).setEase(LeanTweenType.easeOutQuint);
 
-        LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.5f, 0f),
-                    0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);
+    //    LeanTween.moveLocal(this.gameObject, new Vector3(0, 1.5f, 0f),
+    //                0.05f).setDelay(0.1f).setEase(LeanTweenType.easeOutQuint);
 
-        Color col = this.gameObject.GetComponent<SpriteRenderer>().color;
-        //this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        LeanTween.color(this.gameObject, Color.white, 0.05f);
-        LeanTween.color(this.gameObject, col, 0.05f).setDelay(0.1f);
-    }
+    //    Color col = this.gameObject.GetComponent<SpriteRenderer>().color;
+    //    LeanTween.color(this.gameObject, Color.white, 0.05f);
+    //    LeanTween.color(this.gameObject, col, 0.05f).setDelay(0.1f);
+    //}
 
     //private IEnumerator ShakeAndFlash()
     //{
-    //    float yPos = this.gameObject.transform.position.y;
-    //    this.gameObject.transform.Translate(Vector2.up);
-    //    Color col = this.gameObject.GetComponent<SpriteRenderer>().color;
-    //    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    //    rb.MovePosition(new Vector2(0, 1.65f));
+    //    //rb.AddForce(1f, ForceMode2D.Impulse);
+    //    Color col = sRend.color;
+    //    sRend.color = Color.white;
     //    yield return new WaitForSeconds(0.1f);
-    //    this.gameObject.transform.Translate(new Vector2(0, yPos));
-    //    this.gameObject.GetComponent<SpriteRenderer>().color = col;
+    //    rb.MovePosition(new Vector2(0, constPosY));
+    //    sRend.color = col;
     //}
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Knife"))
+    //    {
+    //        //StartCoroutine(ShakeAndFlash());
+    //        anim.Play("ShakeAndFlash");
+    //        Debug.Log("i'm shaking");
+    //        //ShakeAndFlash();
+    //    }            
+    //}
+    private void ShakeAndFlash(Collider2D col)
     {
-        if (collision.CompareTag("Knife"))
-        {
-            //StartCoroutine(ShakeAndFlash());
-            ShakeAndFlash();
-        }            
+        if (col.CompareTag(this.tag))
+            anim.Play("ShakeAndFlash");
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnCollision -= ShakeAndFlash;
     }
 }
 

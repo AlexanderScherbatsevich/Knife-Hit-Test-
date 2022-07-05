@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 445644565402247689}
   - component: {fileID: 5103249942565191825}
   - component: {fileID: 6359255302854345526}
-  - component: {fileID: 4978188600431422857}
   - component: {fileID: 7330662710439414197}
+  - component: {fileID: 3850910103387583562}
   m_Layer: 7
   m_Name: Knife
   m_TagString: Knife
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6846367172743345542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0211, y: -0.0053, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,32 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &4978188600431422857
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6846367172743345542}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0005033985, y: -0.0030420572}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3, y: 0.84}
-    newSize: {x: 0.3, y: 0.84}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.21999131, y: 0.8035393}
-  m_EdgeRadius: 0
 --- !u!114 &7330662710439414197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,3 +120,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 1800
   skin: {fileID: 0}
+--- !u!60 &3850910103387583562
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6846367172743345542}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.3, y: 0.84}
+    newSize: {x: 0.3, y: 0.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.09915317, y: 0.14899844}
+      - {x: 0.044202495, y: 0.32768154}
+      - {x: -0.0012675151, y: 0.42066872}
+      - {x: -0.054671895, y: 0.31942204}
+      - {x: -0.10401563, y: 0.14363033}
+      - {x: -0.117691986, y: -0.24082315}
+      - {x: -0.12509984, y: -0.40467483}
+      - {x: 0.12708174, y: -0.40579167}
+      - {x: 0.105599, y: -0.048880205}
