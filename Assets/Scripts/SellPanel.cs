@@ -40,7 +40,6 @@ public class SellPanel : MonoBehaviour
     {
         if (toggle)
         {
-            //AudioManager.Instance.click.Play();
             ChangeState(KnifeData.State.isSelected);
             Save.Instance.selectedKnifeID = this.ID;
         }

@@ -34,7 +34,7 @@ public class Knife : MonoBehaviour
         }
         else if (go.tag == "Knife")
         {
-            this.rb.AddForce(new Vector2(Random.Range(-1200, -1000), -force));
+            this.rb.AddForce(new Vector2(Random.Range(-1300, -1100), -force));
             this.rb.SetRotation(Random.Range(-180f, 180f));
         }
         else if(go.tag == "Wall")

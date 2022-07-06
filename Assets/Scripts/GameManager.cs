@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {
             if (Time.time - lastThrowTime < delayBetweenThrows) return;
             else
@@ -66,15 +66,6 @@ public class GameManager : MonoBehaviour
                 lastThrowTime = Time.time;
             }
         }
-        //if (Input.touchCount > 0)
-        //{
-        //    if (Time.time - lastThrowTime < delayBetweenThrows) return;
-        //    else
-        //    {
-        //        OnTouched?.Invoke();
-        //        lastThrowTime = Time.time;
-        //    }
-        //}
     }
 
     private Queue<GameObject> CreateKnives(int knivesCount)
